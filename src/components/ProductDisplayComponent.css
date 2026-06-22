@@ -1,0 +1,21 @@
+.product-image-container{
+    display: block;
+    width: 500px;
+    margin: 100px 50px;
+
+    img{
+        width: 100%;
+        height: auto;
+    }
+}
+
+.images-container{
+    display: flex;
+    height: 50px;
+    width: 500px;
+    padding: 50px 50px;
+}
+
+.product-images{
+    width: 100%;
+}
