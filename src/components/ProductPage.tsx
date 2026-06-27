@@ -1,14 +1,14 @@
-
-import './ProductPage.css'
-import NavBar from './NavBar';
-
+import './styles/ProductPage.css'
 import ProductDisplayComponent from './ProductDisplayComponent';
+import ProductDetails from './ProductDetails';
+import ProductPriceDetails from './ProductPriceDetails';
 
 export default function ProductPage({id}:{id: string}){
     return(
         <div className='product-page'>
-            <NavBar />
             <ProductDisplayComponent id={id}/>  
+            <ProductDetails />
+            <ProductPriceDetails />
         </div>
     )
 }

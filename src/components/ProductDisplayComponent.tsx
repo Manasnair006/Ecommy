@@ -1,4 +1,4 @@
-import './ProductDisplayComponent.css'
+import './styles/ProductDisplayComponent.css'
 import {getProductImage} from '../../public/products'
 
 export default function ProductDisplayComponent({ id }:{ id: string}){

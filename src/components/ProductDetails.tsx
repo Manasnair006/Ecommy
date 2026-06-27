@@ -1,4 +1,4 @@
-import './ProductDetails.css'
+import './styles/ProductDetails.css'
 
 export default function ProductDetails(){
     return(

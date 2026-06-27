@@ -1,0 +1,19 @@
+.catalog-container{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+.product-card{
+    background-color: #1f6feb;
+    width: 250px;
+    min-height: 300px;
+    border-radius: 16px;
+    color: #fff;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}

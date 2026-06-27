@@ -2,15 +2,15 @@
     display: flex;
     background-color: rgb(3, 90, 148);
     align-items: center;
-    position: fixed;
     height: 50px;
     width: 100%;
     gap: 20px;
     padding: 0 15px;
     box-sizing: border-box;
-    
-    margin-top: 0;
+    position: sticky;
     top: 0;
+    z-index: 50;
+    backdrop-filter: saturate(180%) blur(8px);
 }
 
 .sandwichicon{
@@ -37,23 +37,19 @@
     justify-content:space-evenly;
 }
 .search-input{
-    display:flex;  
+    display:flex;
     margin-left: auto;
     justify-content: flex-end;
     align-items: center;
-    width:100%;
     margin-right: 30px;
-    
-
-    input{
-        width:min(250px, 30vw);
-        height: 27px;
-        border: 0.5px solid grey;
-        border-radius: 15px;
-        padding-left: 20px;
-        font-size: 17px;
-        
-    }
+}
+.search-input input{
+    width: min(250px, 30vw);
+    height: 27px;
+    border: 0.5px solid grey;
+    border-radius: 15px;
+    padding-left: 20px;
+    font-size: 17px;
 }
 .searchicon{
    width: 25px;

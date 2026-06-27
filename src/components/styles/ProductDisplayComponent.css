@@ -1,0 +1,35 @@
+.product-image-container{
+    display: block;
+    width: min(100%, 500px);
+    margin: 24px 0 16px;
+}
+.product-image-container img{
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+
+.images-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: min(100%, 500px);
+    padding: 10px 0;
+    flex-wrap: wrap;
+}
+
+.product-images{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+}
+
+.images{
+    margin: 0;
+}

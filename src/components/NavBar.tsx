@@ -1,4 +1,4 @@
-import "./NavBar.css"
+import "./styles/NavBar.css"
 import sandwichicon from '../assets/sandwichbar.png'
 import searchicon from '../assets/search.png'
 

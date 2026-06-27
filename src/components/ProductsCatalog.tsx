@@ -1,5 +1,5 @@
 
-import './ProductsCatalog.css'
+import './styles/ProductsCatalog.css'
 interface Catalogprops{
     num:number
 }
