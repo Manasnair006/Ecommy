@@ -17,4 +17,4 @@ app.listen(5000, ()=>{
 })
 
 const productRouter = require('./routes/productRoutes')
-app.use("/", productRouter)
+app.use("/products", productRouter)
