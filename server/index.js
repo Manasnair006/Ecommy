@@ -14,7 +14,7 @@ app.listen(5000, ()=>{
 })
 
 const productRouter = require('./routes/productRoutes')
-app.use("/products", productRouter)
+app.use("/api/products", productRouter)
 
 const homeRouter = require("./routes/homeRoutes")
 app.use("/home", homeRouter)
