@@ -9,6 +9,10 @@ connectDB();
 app.use(cors())
 app.use(express.json())
 
+const cron = require("node-cron")
+const cacheWarmer = require("./services/cacheWarmer")
+cron.schedule("0 * * * *", cacheWarmer);
+
 app.listen(5000, ()=>{
     console.log("server started")
 })
@@ -17,4 +21,7 @@ const productRouter = require('./routes/productRoutes')
 app.use("/api/products", productRouter)
 
 const homeRouter = require("./routes/homeRoutes")
-app.use("/home", homeRouter)
+app.use("/api/home", homeRouter)
+
+const categoryRouter = require("./routes/categoryRoutes")
+app.use("/api/categories", categoryRouter)
