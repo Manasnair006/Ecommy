@@ -17,6 +17,9 @@ app.listen(5000, ()=>{
     console.log("server started")
 })
 
+const authRouter = require("./routes/authRoutes")
+app.use("/api/auth", authRouter)
+
 const productRouter = require('./routes/productRoutes')
 app.use("/api/products", productRouter)
 
