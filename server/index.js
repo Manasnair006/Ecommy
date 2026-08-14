@@ -28,3 +28,7 @@ app.use("/api/home", homeRouter)
 
 const categoryRouter = require("./routes/categoryRoutes")
 app.use("/api/categories", categoryRouter)
+
+const cartRouter = require("./routes/cartRoutes")
+const auth = require("./middleware/authMiddleware")
+app.use("/api/cart", auth, cartRouter)
