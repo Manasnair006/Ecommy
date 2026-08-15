@@ -17,18 +17,16 @@ app.listen(5000, ()=>{
     console.log("server started")
 })
 
-const authRouter = require("./routes/authRoutes")
-app.use("/api/auth", authRouter)
-
-const productRouter = require('./routes/productRoutes')
-app.use("/api/products", productRouter)
-
-const homeRouter = require("./routes/homeRoutes")
-app.use("/api/home", homeRouter)
-
-const categoryRouter = require("./routes/categoryRoutes")
-app.use("/api/categories", categoryRouter)
-
-const cartRouter = require("./routes/cartRoutes")
 const auth = require("./middleware/authMiddleware")
-app.use("/api/cart", auth, cartRouter)
+
+app.use("/api/auth", require("./routes/authRoutes"))
+
+app.use("/api/products", require('./routes/productRoutes'))
+
+app.use("/api/home", require("./routes/homeRoutes"))
+
+app.use("/api/categories", require("./routes/categoryRoutes"))
+
+app.use("/api/cart", auth,  require("./routes/cartRoutes"))
+
+app.use("/api/orders", auth, require("./routes/orderRoutes"))
