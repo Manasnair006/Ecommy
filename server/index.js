@@ -19,6 +19,8 @@ app.listen(5000, ()=>{
 
 const auth = require("./middleware/authMiddleware")
 
+app.use(express.static("public"))
+
 app.use("/api/auth", require("./routes/authRoutes"))
 
 app.use("/api/products", require('./routes/productRoutes'))
@@ -30,3 +32,5 @@ app.use("/api/categories", require("./routes/categoryRoutes"))
 app.use("/api/cart", auth,  require("./routes/cartRoutes"))
 
 app.use("/api/orders", auth, require("./routes/orderRoutes"))
+
+app.use("/api/payment", auth, require("./routes/paymentRoutes"))

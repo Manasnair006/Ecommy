@@ -52,6 +52,26 @@ const orderSchema = new mongoose.Schema(
                 "cancelled"
             ],
             default: "pending"
+        },
+        payment:{
+            razorpayOrderId:{
+                type: String
+            },
+            razorpayPaymentId:{
+                type: String
+            },
+            razorpaySignature:{
+                type: String
+            },
+            status:{
+                type:String,
+                enum:[
+                    "pending",
+                    "paid",
+                    "failed"
+                ],
+                default: "pending"
+            }
         }
     },{
         timestamps: true,

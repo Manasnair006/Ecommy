@@ -1,6 +1,7 @@
 const Cart = require("../models/Cart")
 const Order = require("../models/Order")
 const Product = require("../models/Product")
+const razorpay = require("../config/razorpay")
 
 exports.createOrder = async (req , res) =>{
     try{
@@ -41,21 +42,32 @@ exports.createOrder = async (req , res) =>{
         const order = await Order.create({
             userId: req.user.id,
             items,
-            totalAmount: totalPrice
-        });
-
-        await Cart.findOneAndUpdate(
-            { userId: req.user.id},
-            {
-                $set:{
-                    items: []
-                }
+            totalAmount: totalPrice,
+            status: 'pending',
+            payment:{
+                status: "pending"
             }
-        );
+        });
+        
+        const razorpayOrder = await razorpay.orders.create({
+            amount: Math.round( totalPrice * 100),
+            currency: "INR",
+            receipt: order._id.toString()
+        })
+
+        order.payment.razorpayOrderId = razorpayOrder.id
+
+        await order.save()
+
         res.status(201).json({
             message: "Order Created Successfully",
-            order
-        })
+            id: order._id,
+            razorpayOrderId: razorpayOrder.id,
+            currency: razorpayOrder.currency,
+            amount: razorpayOrder.amount,
+            key: process.env.RAZORPAY_KEY
+        });
+
     }catch(error){
         console.error(error)
         res.status(500).json({
