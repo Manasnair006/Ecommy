@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECOMMY - Discover Quality Products Online</title>
+  <link rel="stylesheet" href="css/tailwind.css">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="nav-brand">
+        <button class="sandwich-btn" aria-label="Toggle menu">☰</button>
+        <a href="index.html" style="display:flex; align-items:center; gap:8px;">
+          <span>ECOMMY</span>
+        </a>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="offers.html" class="nav-link">Offers</a>
+        <a href="about.html" class="nav-link">About Us</a>
+      </nav>
+
+      <div class="nav-search">
+        <input type="text" placeholder="Search electronics, fashion, home...">
+        <button type="submit">🔍</button>
+      </div>
+
+      <div class="nav-actions">
+        <a href="login.html" class="nav-action-btn">👤 Login</a>
+        <a href="cart.html" class="nav-action-btn">
+          🛒 Cart
+          <span class="cart-badge">3</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Wrapper -->
+  <main class="page-wrapper">
+    <div class="container">
+      
+      <!-- Hero Banner -->
+      <section class="hero-section">
+        <h1 class="hero-title">Welcome to Ecommy Store</h1>
+        <p class="hero-subtitle">Discover premium electronics, trendsetting apparel, and everyday essentials at unbeatable prices with express delivery.</p>
+        <div style="display:flex; gap:16px; justify-content:center;">
+          <a href="products.html" class="btn btn-accent btn-lg">Shop Catalog Now</a>
+          <a href="offers.html" class="btn btn-outline btn-lg" style="color:white; border-color:white;">View Today's Deals</a>
+        </div>
+      </section>
+
+      <!-- Value Propositions Banner -->
+      <section class="features-banner">
+        <div class="feature-card">
+          <div class="feature-icon">🚚</div>
+          <div>
+            <h4 style="font-weight:700;">Free Shipping</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted);">On orders over $50</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <div>
+            <h4 style="font-weight:700;">Secure Checkout</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted);">256-Bit Encrypted</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <div>
+            <h4 style="font-weight:700;">Easy Returns</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted);">30-Day Money Back Guarantee</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎧</div>
+          <div>
+            <h4 style="font-weight:700;">24/7 Support</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted);">Dedicated Customer Care</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular Categories Section -->
+      <section style="margin-bottom:48px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <h2 style="font-size:1.5rem; font-weight:700;">Browse Top Categories</h2>
+          <a href="products.html" style="color:var(--primary-color); font-weight:600;">View All →</a>
+        </div>
+        <div class="category-grid">
+          <a href="products.html?cat=electronics" class="category-card">
+            <div class="category-card-icon">🎧</div>
+            <h3 style="font-size:1rem; font-weight:600;">Electronics</h3>
+          </a>
+          <a href="products.html?cat=fashion" class="category-card">
+            <div class="category-card-icon">👕</div>
+            <h3 style="font-size:1rem; font-weight:600;">Fashion</h3>
+          </a>
+          <a href="products.html?cat=home" class="category-card">
+            <div class="category-card-icon">🏠</div>
+            <h3 style="font-size:1rem; font-weight:600;">Home & Kitchen</h3>
+          </a>
+          <a href="products.html?cat=books" class="category-card">
+            <div class="category-card-icon">📚</div>
+            <h3 style="font-size:1rem; font-weight:600;">Books & Media</h3>
+          </a>
+          <a href="products.html?cat=beauty" class="category-card">
+            <div class="category-card-icon">✨</div>
+            <h3 style="font-size:1rem; font-weight:600;">Beauty & Care</h3>
+          </a>
+          <a href="products.html?cat=deals" class="category-card" style="background:#fef3c7; border-color:#f59e0b;">
+            <div class="category-card-icon">🔥</div>
+            <h3 style="font-size:1rem; font-weight:600; color:#92400e;">Flash Deals</h3>
+          </a>
+        </div>
+      </section>
+
+      <!-- Featured Products Grid -->
+      <section style="margin-bottom:48px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <h2 style="font-size:1.5rem; font-weight:700;">Featured Products</h2>
+          <a href="products.html" style="color:var(--primary-color); font-weight:600;">Explore Catalog →</a>
+        </div>
+        
+        <div class="product-grid">
+          <!-- Card 1 -->
+          <div class="product-card">
+            <span class="badge badge-bestseller product-card-badge">Best Seller</span>
+            <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Wireless Headphones" class="product-card-img">
+            <div class="product-card-body">
+              <div class="product-card-brand">Sony</div>
+              <h3 class="product-card-title"><a href="product-detail.html">WH-1000XM4 Wireless Noise Canceling Headphones</a></h3>
+              <div class="rating-stars">
+                ★★★★☆ <span class="rating-count">(1,240)</span>
+              </div>
+              <div class="product-card-price">
+                <span class="price-current">$278.00</span>
+                <span class="price-list">$349.99</span>
+              </div>
+              <div class="product-card-footer">
+                <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="product-card">
+            <span class="badge badge-discount product-card-badge">20% OFF</span>
+            <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Smart Watch" class="product-card-img">
+            <div class="product-card-body">
+              <div class="product-card-brand">Apple</div>
+              <h3 class="product-card-title"><a href="product-detail.html">Watch Series 9 GPS 45mm Smartwatch</a></h3>
+              <div class="rating-stars">
+                ★★★★★ <span class="rating-count">(890)</span>
+              </div>
+              <div class="product-card-price">
+                <span class="price-current">$329.00</span>
+                <span class="price-list">$429.00</span>
+              </div>
+              <div class="product-card-footer">
+                <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="product-card">
+            <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Mechanical Keyboard" class="product-card-img">
+            <div class="product-card-body">
+              <div class="product-card-brand">Logitech</div>
+              <h3 class="product-card-title"><a href="product-detail.html">MX Keys Mini Wireless Mechanical Keyboard</a></h3>
+              <div class="rating-stars">
+                ★★★★☆ <span class="rating-count">(450)</span>
+              </div>
+              <div class="product-card-price">
+                <span class="price-current">$99.99</span>
+              </div>
+              <div class="product-card-footer">
+                <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="product-card">
+            <span class="badge badge-bestseller product-card-badge">Top Rated</span>
+            <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Ergonomic Chair" class="product-card-img">
+            <div class="product-card-body">
+              <div class="product-card-brand">Herman Miller</div>
+              <h3 class="product-card-title"><a href="product-detail.html">Ergonomic High-Back Task Chair</a></h3>
+              <div class="rating-stars">
+                ★★★★★ <span class="rating-count">(2,100)</span>
+              </div>
+              <div class="product-card-price">
+                <span class="price-current">$649.00</span>
+                <span class="price-list">$799.00</span>
+              </div>
+              <div class="product-card-footer">
+                <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4>ECOMMY</h4>
+        <p style="font-size:0.9rem; line-height:1.6; color:#9ca3af;">Your ultimate destination for quality products, fast checkout, and customer satisfaction.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="products.html">Catalog</a></li>
+          <li><a href="offers.html">Deals & Coupons</a></li>
+          <li><a href="orders.html">Track Order</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="profile.html">My Account</a></li>
+          <li><a href="cart.html">Shopping Cart</a></li>
+          <li><a href="about.html">Contact Support</a></li>
+          <li><a href="about.html">Return Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="font-size:0.85rem; color:#9ca3af; margin-bottom:12px;">Subscribe for exclusive discounts & updates.</p>
+        <div style="display:flex; gap:8px;">
+          <input type="email" placeholder="Enter your email" class="form-control" style="font-size:0.85rem;">
+          <button class="btn btn-accent btn-sm">Join</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        &copy; 2026 ECOMMY Inc. All rights reserved. Built for exceptional shopping experiences.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

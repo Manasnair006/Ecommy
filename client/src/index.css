@@ -1,26 +1,29 @@
-*, *::before, *::after {
-  box-sizing: border-box;
+@import "./fonts/fonts.css";
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Amazon Ember", Arial, Helvetica, sans-serif;
+  --color-brand: #035a94;
+  --color-brand-dark: #024a7b;
+  --color-accent: #ff9900;
+  --color-surface: #f8f9fb;
 }
 
-html, body, #root {
-  margin: 0;
-  min-height: 100vh;
-}
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100vh;
+  }
 
-body{
-  font-family: "Amazon Ember" Arial, Helvetica;
-  background: #f8f9fb;
-  color: #111;
-}
+  body {
+    @apply bg-surface font-sans text-slate-950 antialiased;
+  }
 
-#root{
-  width: 100%;
+  button,
+  input,
+  select {
+    font: inherit;
+  }
 }
-
-.parent{
-  display: grid;
-  grid-template-columns: 1fr 170px;
-  gap: 0;
-}
-
 

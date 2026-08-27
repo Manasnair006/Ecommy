@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile & Account - ECOMMY</title>
+  <link rel="stylesheet" href="css/tailwind.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="nav-brand">
+        <button class="sandwich-btn" aria-label="Toggle menu">☰</button>
+        <a href="index.html" style="display:flex; align-items:center; gap:8px;">
+          <span>ECOMMY</span>
+        </a>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="offers.html" class="nav-link">Offers</a>
+        <a href="about.html" class="nav-link">About Us</a>
+      </nav>
+
+      <div class="nav-search">
+        <input type="text" placeholder="Search products...">
+        <button type="submit">🔍</button>
+      </div>
+
+      <div class="nav-actions">
+        <a href="profile.html" class="nav-action-btn active">👤 Profile</a>
+        <a href="cart.html" class="nav-action-btn">🛒 Cart <span class="cart-badge">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <div class="container">
+      
+      <!-- Profile Header Banner -->
+      <div class="card" style="padding:24px; margin-bottom:28px; display:flex; align-items:center; gap:20px;">
+        <div style="width:72px; height:72px; background:var(--primary-color); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:700;">
+          JD
+        </div>
+        <div>
+          <h1 style="font-size:1.5rem; font-weight:800;">John Doe</h1>
+          <p style="font-size:0.9rem; color:var(--text-muted);">john.doe@example.com • Member since Jan 2024</p>
+        </div>
+      </div>
+
+      <!-- Profile Layout -->
+      <div class="profile-layout">
+        
+        <!-- Profile Navigation -->
+        <div class="profile-nav-card">
+          <a href="#" class="profile-nav-item active" data-tab-target="tab-info">👤 Personal Info</a>
+          <a href="#" class="profile-nav-item" data-tab-target="tab-addresses">🏠 Saved Addresses</a>
+          <a href="orders.html" class="profile-nav-item">📦 Order History</a>
+          <a href="#" class="profile-nav-item" data-tab-target="tab-security">🔒 Security Settings</a>
+          <a href="login.html" class="profile-nav-item" style="color:var(--danger-color); margin-top:20px;">🚪 Sign Out</a>
+        </div>
+
+        <!-- Content Panes -->
+        <div class="card" style="padding:28px;">
+          
+          <!-- Tab 1: Personal Info -->
+          <div id="tab-info" class="tab-pane active">
+            <h2 style="font-size:1.3rem; font-weight:700; margin-bottom:20px;">Personal Information</h2>
+            <form onSubmit="event.preventDefault(); showToast('Profile details updated successfully!');">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="form-group">
+                  <label class="form-label">First Name</label>
+                  <input type="text" value="John" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Last Name</label>
+                  <input type="text" value="Doe" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" value="john.doe@example.com" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" value="+1 (555) 019-2834" class="form-control">
+              </div>
+              <button class="btn btn-primary" type="submit">Save Changes</button>
+            </form>
+          </div>
+
+          <!-- Tab 2: Addresses -->
+          <div id="tab-addresses" class="tab-pane" style="display:none;">
+            <h2 style="font-size:1.3rem; font-weight:700; margin-bottom:20px;">Saved Addresses</h2>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
+              <div style="border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md);">
+                <span class="badge badge-bestseller" style="margin-bottom:8px;">Default</span>
+                <h4 style="font-weight:700;">Home Address</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin:8px 0;">123 Innovation Way, Suite 400<br>San Francisco, CA 94105</p>
+                <button class="btn btn-outline btn-sm">Edit</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Security -->
+          <div id="tab-security" class="tab-pane" style="display:none;">
+            <h2 style="font-size:1.3rem; font-weight:700; margin-bottom:20px;">Security & Password</h2>
+            <form onSubmit="event.preventDefault(); showToast('Password changed successfully!');">
+              <div class="form-group">
+                <label class="form-label">Current Password</label>
+                <input type="password" placeholder="••••••••" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <input type="password" placeholder="••••••••" class="form-control">
+              </div>
+              <button class="btn btn-primary" type="submit">Update Password</button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-bottom">
+      &copy; 2026 ECOMMY Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -9,7 +9,7 @@ async function buildHomeData(){
         Products.find({
             isBestSeller: true
         })
-        .select("title imgUrl price listPrice")
+        .select("asin title imgUrl price listPrice")
         .limit(7)
         .lean(),
 
@@ -53,7 +53,7 @@ async function buildHomeData(){
                 boughtInLastMonth: -1
             })
             .limit(7)
-            .select("title imgUrl price listPrice")
+            .select("asin title imgUrl price listPrice")
             .lean()
 
         ]);

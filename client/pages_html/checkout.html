@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - ECOMMY</title>
+  <link rel="stylesheet" href="css/tailwind.css">
+</head>
+<body>
+
+  <!-- Minimal Header -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="nav-brand">
+        <a href="index.html" style="color:white; font-size:1.6rem; font-weight:800;">ECOMMY <span>CHECKOUT</span></a>
+      </div>
+      <div style="color:white; font-size:0.9rem;">
+        🔒 Secure 256-Bit SSL Checkout
+      </div>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <div class="container">
+      
+      <!-- Stepper -->
+      <div class="stepper">
+        <div class="step-item active">
+          <div class="step-circle">1</div>
+          <span>Shipping</span>
+        </div>
+        <div class="step-item active">
+          <div class="step-circle">2</div>
+          <span>Payment</span>
+        </div>
+        <div class="step-item">
+          <div class="step-circle">3</div>
+          <span>Confirmation</span>
+        </div>
+      </div>
+
+      <div class="cart-layout">
+        
+        <!-- Form Section -->
+        <div>
+          <!-- Shipping Address -->
+          <div class="card" style="padding:24px; margin-bottom:24px;">
+            <h2 style="font-size:1.25rem; font-weight:700; margin-bottom:16px;">1. Select Delivery Address</h2>
+            
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px; margin-bottom:20px;">
+              <div style="border:2px solid var(--primary-color); background:var(--primary-light); padding:16px; border-radius:var(--radius-md); position:relative;">
+                <input type="radio" name="address" checked style="position:absolute; top:16px; right:16px;">
+                <h4 style="font-weight:700;">John Doe (Home)</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">123 Innovation Way, Suite 400<br>San Francisco, CA 94105<br>Phone: (555) 019-2834</p>
+              </div>
+
+              <div style="border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); position:relative;">
+                <input type="radio" name="address" style="position:absolute; top:16px; right:16px;">
+                <h4 style="font-weight:700;">John Doe (Office)</h4>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">500 Tech Boulevard, Floor 12<br>San Jose, CA 95113<br>Phone: (555) 019-9988</p>
+              </div>
+            </div>
+
+            <button class="btn btn-outline btn-sm">+ Add New Shipping Address</button>
+          </div>
+
+          <!-- Payment Options -->
+          <div class="card" style="padding:24px;">
+            <h2 style="font-size:1.25rem; font-weight:700; margin-bottom:16px;">2. Payment Method</h2>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <!-- Credit Card -->
+              <label style="border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); cursor:pointer; display:block;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <input type="radio" name="payment" checked>
+                  <strong style="font-size:1rem;">Credit / Debit Card</strong>
+                  <span style="font-size:0.8rem; color:var(--text-muted); margin-left:auto;">Visa, Mastercard, Amex</span>
+                </div>
+
+                <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--border-color);">
+                  <div class="form-group">
+                    <label class="form-label">Cardholder Name</label>
+                    <input type="text" value="John Doe" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Card Number</label>
+                    <input type="text" placeholder="4532 •••• •••• 8921" class="form-control">
+                  </div>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                    <div class="form-group">
+                      <label class="form-label">Expiry (MM/YY)</label>
+                      <input type="text" placeholder="08/28" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">CVV Security Code</label>
+                      <input type="password" placeholder="•••" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </label>
+
+              <!-- Razorpay / UPI -->
+              <label style="border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); cursor:pointer; display:block;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <input type="radio" name="payment">
+                  <strong style="font-size:1rem;">Razorpay UPI / NetBanking / Wallet</strong>
+                </div>
+              </label>
+
+              <!-- Cash on Delivery -->
+              <label style="border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md); cursor:pointer; display:block;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <input type="radio" name="payment">
+                  <strong style="font-size:1rem;">Cash on Delivery (COD)</strong>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Summary -->
+        <div class="order-summary">
+          <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:16px;">Order Overview</h3>
+
+          <div style="display:flex; gap:12px; margin-bottom:16px;">
+            <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" style="width:50px; height:50px; object-fit:contain; border:1px solid var(--border-color); border-radius:4px;">
+            <div style="font-size:0.85rem;">
+              <div style="font-weight:600;">Sony WH-1000XM4 Headphones</div>
+              <div style="color:var(--text-muted);">Qty: 1 × $278.00</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:12px; margin-bottom:16px;">
+            <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" style="width:50px; height:50px; object-fit:contain; border:1px solid var(--border-color); border-radius:4px;">
+            <div style="font-size:0.85rem;">
+              <div style="font-weight:600;">Apple Watch Series 9 GPS</div>
+              <div style="color:var(--text-muted);">Qty: 1 × $329.00</div>
+            </div>
+          </div>
+
+          <hr style="border:none; border-top:1px solid var(--border-color); margin:16px 0;">
+
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span>$607.00</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping:</span>
+            <span style="color:var(--success-color);">FREE</span>
+          </div>
+          <div class="summary-row">
+            <span>Taxes & Fees:</span>
+            <span>$48.56</span>
+          </div>
+          <div class="summary-row" style="color:var(--success-color);">
+            <span>Discount:</span>
+            <span>-$15.00</span>
+          </div>
+
+          <div class="summary-row total">
+            <span>Grand Total:</span>
+            <span>$640.56</span>
+          </div>
+
+          <a href="orders.html" class="btn btn-accent btn-block btn-lg" style="margin-top:20px;">
+            Place Order & Pay Now →
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-bottom">
+      &copy; 2026 ECOMMY Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

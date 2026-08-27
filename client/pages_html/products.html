@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECOMMY - Products Catalog</title>
+  <link rel="stylesheet" href="css/tailwind.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="nav-brand">
+        <button class="sandwich-btn" aria-label="Toggle menu">☰</button>
+        <a href="index.html" style="display:flex; align-items:center; gap:8px;">
+          <span>ECOMMY</span>
+        </a>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link active">Products</a>
+        <a href="offers.html" class="nav-link">Offers</a>
+        <a href="about.html" class="nav-link">About Us</a>
+      </nav>
+
+      <div class="nav-search">
+        <input type="text" placeholder="Search electronics, fashion, home...">
+        <button type="submit">🔍</button>
+      </div>
+
+      <div class="nav-actions">
+        <a href="login.html" class="nav-action-btn">👤 Login</a>
+        <a href="cart.html" class="nav-action-btn">
+          🛒 Cart
+          <span class="cart-badge">3</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <main class="page-wrapper">
+    <div class="container">
+      
+      <div class="catalog-layout">
+        
+        <!-- Filter Sidebar -->
+        <aside class="filter-sidebar">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3 style="font-size:1.1rem; font-weight:700;">Filter Products</h3>
+            <a href="products.html" style="font-size:0.85rem; color:var(--primary-color);">Reset</a>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="filter-section">
+            <h4 class="filter-title">Categories</h4>
+            <ul class="filter-list">
+              <li>
+                <label class="filter-checkbox">
+                  <input type="checkbox" checked> All Categories
+                </label>
+              </li>
+              <li>
+                <label class="filter-checkbox">
+                  <input type="checkbox"> Electronics & Tech (124)
+                </label>
+              </li>
+              <li>
+                <label class="filter-checkbox">
+                  <input type="checkbox"> Apparel & Fashion (86)
+                </label>
+              </li>
+              <li>
+                <label class="filter-checkbox">
+                  <input type="checkbox"> Home & Kitchen (52)
+                </label>
+              </li>
+              <li>
+                <label class="filter-checkbox">
+                  <input type="checkbox"> Books & Stationery (34)
+                </label>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="filter-section">
+            <h4 class="filter-title">Price Range</h4>
+            <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px;">
+              <input type="number" placeholder="Min $" class="form-control" style="padding:6px;">
+              <span>-</span>
+              <input type="number" placeholder="Max $" class="form-control" style="padding:6px;">
+            </div>
+            <button class="btn btn-outline btn-sm btn-block">Apply Price</button>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="filter-section">
+            <h4 class="filter-title">Customer Rating</h4>
+            <ul class="filter-list">
+              <li>
+                <label class="filter-checkbox">
+                  <input type="radio" name="stars"> ★★★★☆ & Above (4+)
+                </label>
+              </li>
+              <li>
+                <label class="filter-checkbox">
+                  <input type="radio" name="stars"> ★★★☆☆ & Above (3+)
+                </label>
+              </li>
+              <li>
+                <label class="filter-checkbox">
+                  <input type="radio" name="stars"> ★★☆☆☆ & Above (2+)
+                </label>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Badges & Features -->
+          <div class="filter-section">
+            <h4 class="filter-title">Other Options</h4>
+            <ul class="filter-list">
+              <li>
+                <label class="filter-checkbox">
+                  <input type="checkbox"> Best Sellers Only
+                </label>
+              </li>
+              <li>
+                <label class="filter-checkbox">
+                  <input type="checkbox"> Discounted Items
+                </label>
+              </li>
+              <li>
+                <label class="filter-checkbox">
+                  <input type="checkbox"> Free Delivery
+                </label>
+              </li>
+            </ul>
+          </div>
+
+        </aside>
+
+        <!-- Main Product Grid & Controls -->
+        <div>
+          <div class="catalog-header">
+            <div style="font-weight:600; color:var(--text-muted);">
+              Showing 1-12 of 248 products
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <label for="sortSelect" style="font-size:0.9rem; font-weight:600;">Sort By:</label>
+              <select id="sortSelect" class="form-control" style="width:auto; padding:6px 12px;">
+                <option value="featured">Featured</option>
+                <option value="priceAsc">Price: Low to High</option>
+                <option value="priceDesc">Price: High to Low</option>
+                <option value="ratings">Customer Rating</option>
+                <option value="newest">Newest Arrivals</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Product Grid -->
+          <div class="product-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+              <span class="badge badge-bestseller product-card-badge">Best Seller</span>
+              <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Headphones" class="product-card-img">
+              <div class="product-card-body">
+                <div class="product-card-brand">Sony</div>
+                <h3 class="product-card-title"><a href="product-detail.html">WH-1000XM4 Noise Canceling Headphones</a></h3>
+                <div class="rating-stars">★★★★☆ <span class="rating-count">(1,240)</span></div>
+                <div class="product-card-price">
+                  <span class="price-current">$278.00</span>
+                  <span class="price-list">$349.99</span>
+                </div>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+              <span class="badge badge-discount product-card-badge">15% OFF</span>
+              <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Smart Watch" class="product-card-img">
+              <div class="product-card-body">
+                <div class="product-card-brand">Apple</div>
+                <h3 class="product-card-title"><a href="product-detail.html">Apple Watch Series 9 GPS 45mm</a></h3>
+                <div class="rating-stars">★★★★★ <span class="rating-count">(890)</span></div>
+                <div class="product-card-price">
+                  <span class="price-current">$329.00</span>
+                  <span class="price-list">$389.00</span>
+                </div>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+              <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Keyboard" class="product-card-img">
+              <div class="product-card-body">
+                <div class="product-card-brand">Logitech</div>
+                <h3 class="product-card-title"><a href="product-detail.html">MX Keys Mechanical Wireless Keyboard</a></h3>
+                <div class="rating-stars">★★★★☆ <span class="rating-count">(450)</span></div>
+                <div class="product-card-price">
+                  <span class="price-current">$99.99</span>
+                </div>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+              <span class="badge badge-bestseller product-card-badge">Top Pick</span>
+              <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Monitor" class="product-card-img">
+              <div class="product-card-body">
+                <div class="product-card-brand">Dell</div>
+                <h3 class="product-card-title"><a href="product-detail.html">UltraSharp 27" 4K USB-C Monitor</a></h3>
+                <div class="rating-stars">★★★★★ <span class="rating-count">(610)</span></div>
+                <div class="product-card-price">
+                  <span class="price-current">$449.00</span>
+                  <span class="price-list">$529.00</span>
+                </div>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+              <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Mouse" class="product-card-img">
+              <div class="product-card-body">
+                <div class="product-card-brand">Razer</div>
+                <h3 class="product-card-title"><a href="product-detail.html">DeathAdder V3 Pro Wireless Mouse</a></h3>
+                <div class="rating-stars">★★★★☆ <span class="rating-count">(320)</span></div>
+                <div class="product-card-price">
+                  <span class="price-current">$119.99</span>
+                </div>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+              <span class="badge badge-discount product-card-badge">Save $30</span>
+              <img src="../src/assets/productimages/71wD439AytL._SL1500_.jpg" alt="Soundbar" class="product-card-img">
+              <div class="product-card-body">
+                <div class="product-card-brand">Bose</div>
+                <h3 class="product-card-title"><a href="product-detail.html">Smart Soundbar 600 with Dolby Atmos</a></h3>
+                <div class="rating-stars">★★★★★ <span class="rating-count">(780)</span></div>
+                <div class="product-card-price">
+                  <span class="price-current">$469.00</span>
+                  <span class="price-list">$499.00</span>
+                </div>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-block btn-sm" data-add-cart>Add to Cart</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pagination Bar -->
+          <div style="display:flex; justify-content:center; gap:8px; margin-top:32px;">
+            <button class="btn btn-outline btn-sm" disabled>‹ Previous</button>
+            <button class="btn btn-primary btn-sm">1</button>
+            <button class="btn btn-outline btn-sm">2</button>
+            <button class="btn btn-outline btn-sm">3</button>
+            <button class="btn btn-outline btn-sm">Next ›</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4>ECOMMY</h4>
+        <p style="font-size:0.9rem; line-height:1.6; color:#9ca3af;">Your ultimate destination for quality products, fast checkout, and customer satisfaction.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="products.html">Catalog</a></li>
+          <li><a href="offers.html">Deals & Coupons</a></li>
+          <li><a href="orders.html">Track Order</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="profile.html">My Account</a></li>
+          <li><a href="cart.html">Shopping Cart</a></li>
+          <li><a href="about.html">Contact Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="font-size:0.85rem; color:#9ca3af; margin-bottom:12px;">Subscribe for exclusive discounts & updates.</p>
+        <div style="display:flex; gap:8px;">
+          <input type="email" placeholder="Enter your email" class="form-control" style="font-size:0.85rem;">
+          <button class="btn btn-accent btn-sm">Join</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">&copy; 2026 ECOMMY Inc. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

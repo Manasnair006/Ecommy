@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "Amazon Ember";
+    src: url('./amazon-ember/Amazon\ Ember.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Amazon Ember";
+    src: url('./amazon-ember/Amazon\ Ember\ Bold.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Amazon Ember";
+    src: url('./amazon-ember/Amazon\ Ember\ Heavy.ttf');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Amazon Ember";
+    src: url('./amazon-ember/Amazon\ Ember\ Light.ttf');
+    font-weight: 300;
+    font-style: normal;
+}

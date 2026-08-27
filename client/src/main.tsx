@@ -1,14 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import CartComponent from './components/CartComponent'
-import ProductsPage from './ProductsPage'
+import App from './App'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <div className='parent'>
-      <ProductsPage />
-      <CartComponent /> 
-    </div>
+    <App />
   </StrictMode>,
 )

@@ -6,7 +6,7 @@ exports.getHomeData = async (req, res) => {
 
         const homeData = await redisGetOrSet("home", buildHomeData);
 
-        res.json(homeData);
+        res.status(200).json(homeData);
 
     } catch (err) {
 
