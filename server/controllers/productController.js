@@ -97,14 +97,17 @@ exports.getProducts= async(req, res)=>{
         const filter = {}
         const{ q, category, minPrice, maxPrice, stars, bestSeller, discount, sort, page=1} = req.query
 
-        if(page<=0 || category<=0 || minPrice<0 || minPrice>maxPrice || stars<0 || stars>5){
-            res.status(400).json({
+        /*if(page<=0 || category<=0 || minPrice<0 || minPrice>maxPrice || stars<0 || stars>5){
+            return res.status(400).json({
                 success:false,
                 message: "Bad Request"
             })
         }
+        */
 
-        if(category) filter.category_id = parseInt(category)
+        if(category) filter.category_id = {
+            $in: category.split(",").map(Number)
+        }
         if(minPrice || maxPrice){
             filter.price = {}
             if(minPrice){
@@ -121,7 +124,7 @@ exports.getProducts= async(req, res)=>{
                 $lt:["$price", "$listPrice"]
             }
         }
-        if(q && q.trim !== ""){
+        if(q && q.trim() !== ""){
             filter.$text={
                 $search: q.trim()
             }  

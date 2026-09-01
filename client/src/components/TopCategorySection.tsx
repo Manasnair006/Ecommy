@@ -2,16 +2,13 @@ import "../styles/tailwind.css"
 import { Product } from "../data/Product";
 import ProductCard from "./ProductCard";
 
-interface CategorySectionProps {
-    name: string;
-    products: [Product] | []
+interface TopCategorySectionProps{
+    id?:number;
+    name:string;
+    products: Product[];
 }
 
-export default function TopCategorySection({name, products}:CategorySectionProps){
-    let categoryName = name
-    if (name === 'besSellers'){
-        categoryName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase
-    }
+export default function TopCategorySection({id, name, products}:TopCategorySectionProps){
     if(!products){
         return(
             <div></div>
@@ -20,8 +17,8 @@ export default function TopCategorySection({name, products}:CategorySectionProps
     return(
         <section className="mb-12">
             <div className="flex justify-between items-center mb-5">
-                <h2 className="text-2xl font-bold" >{categoryName}</h2>
-                <a href="products.html" className="text-ink font-semibold" >Explore {categoryName} →</a>
+                <h2 className="text-2xl font-bold" >{name}</h2>
+                <a href={`products.html/${id}`} className="text-ink font-semibold" >Explore {name} →</a>
             </div>
             
             <div className="product-grid">

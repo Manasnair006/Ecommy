@@ -5,7 +5,11 @@
   --font-sans: "Amazon Ember", Arial, Helvetica, sans-serif;
   --color-brand: #035a94;
   --color-brand-dark: #024a7b;
+  --color-brand-light: #e6f0fa;
   --color-accent: #ff9900;
+  --color-accent-dark: #e68a00;
+  --color-ink: #111827;
+  --color-muted: #6b7280;
   --color-surface: #f8f9fb;
 }
 
@@ -14,6 +18,19 @@
   body,
   #root {
     min-height: 100vh;
+  }
+
+  /* Never allow an accidental horizontal scrollbar to break the layout */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Make the app shell a full-height flex column so every page stretches
+     edge-to-edge and the footer is always pinned to the bottom. */
+  #root {
+    display: flex;
+    flex-direction: column;
   }
 
   body {

@@ -7,6 +7,7 @@ export default function ProductCard(product:Product){
             <img src={product.imgUrl} alt={product.title} className="product-card-img" />
             <div className="product-card-body">
                 <h3 className="product-card-title"><a href="product-detail.html">{product.title}</a></h3>
+                <div className="rating-stars">★★★★☆ <span className="rating-count">(1,240)</span></div>
                 <div className="product-card-price">
                     <span className="price-current">${product.price}</span>
                     <span className="price-list">${product.listPrice}</span>

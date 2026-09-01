@@ -3,7 +3,7 @@ import "../styles/tailwind.css"
 
 function HeroPage() {
   return (
-    <main className='container'>
+    <main>
       <section className="relative flex min-h-[calc(100vh-4rem)] w-full items-center justify-center overflow-hidden bg-slate-900 px-4 py-16">
         <img 
           src={Hero} 

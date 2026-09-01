@@ -10,12 +10,12 @@ import "../styles/tailwind.css"
 export interface CategoryData {
     categoryId: number;
     categoryName: string;
-    products: [Product]
+    products: Product[]
 }
 
 export interface HomeData {
-    bestSeller: [Product] | [];
-    categoriesData: [CategoryData] | []
+    bestSeller: Product[] | [];
+    categoriesData: CategoryData[] | []
 }
 
 export default function Homepage(){
@@ -42,22 +42,24 @@ export default function Homepage(){
     }
 
     return(
-        <div className="container">
+        <>
             <HeroSection />
-            <section className="features-banner">
-                <FeatureCard h="Free Shipping" p="On orders over $50" iconUrl="/free-delivery_icon.png"/>
-                <FeatureCard h="Secure Checkout" p="On orders over $50" iconUrl="/secure_checkout_icon.png"/>
-                <FeatureCard h="Easy Returns" p="On orders over $50" iconUrl="/easy_returns_icon.png"/>
-                <FeatureCard h="24/7 Support" p="On orders over $50" iconUrl="/24_hours_support_icon.png"/>
-            </section>
-            <CategoriesSection />
-            <TopCategorySection name="bestSellers" products={home.bestSeller}/>
-            
-            {home.categoriesData.map((cat)=>{
-                return(
-                    <TopCategorySection key={cat.categoryId} name={cat.categoryName} products={cat.products}/>
-                )
-            })}
-        </div>
+            <div className="container">
+                <section className="features-banner">
+                    <FeatureCard h="Free Shipping" p="On orders over $50" iconUrl="/free-delivery_icon.png"/>
+                    <FeatureCard h="Secure Checkout" p="On orders over $50" iconUrl="/secure_checkout_icon.png"/>
+                    <FeatureCard h="Easy Returns" p="On orders over $50" iconUrl="/easy_returns_icon.png"/>
+                    <FeatureCard h="24/7 Support" p="On orders over $50" iconUrl="/24_hours_support_icon.png"/>
+                </section>
+                <CategoriesSection />
+                <TopCategorySection name="Bestsellers" products={home.bestSeller}/>
+                
+                {home.categoriesData.map((cat)=>{
+                    return(
+                        <TopCategorySection key={cat.categoryId} id={cat.categoryId} name={cat.categoryName} products={cat.products} />
+                    )
+                })}
+            </div>
+        </>
     )
 }

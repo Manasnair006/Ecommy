@@ -14,7 +14,11 @@
 }
 
 @layer base {
+  html {
+    overflow-x: hidden;
+  }
   body { @apply flex min-h-screen flex-col bg-surface font-sans leading-normal text-ink; }
+  #root { display: flex; flex-direction: column; }
   a { @apply text-inherit no-underline; }
   img { @apply block h-auto max-w-full; }
 }
@@ -32,14 +36,14 @@
   .nav-link { @apply rounded-md px-3 py-1.5 text-base font-medium whitespace-nowrap text-white/90 transition hover:bg-white/15 hover:text-white; }
   .nav-link.active { @apply bg-white/15 text-white; }
   .nav-search { @apply relative flex min-w-0 max-w-md flex-1 items-center; }
-  .nav-search input { @apply h-10 w-full rounded-full border border-transparent py-0 pr-11 pl-4 text-sm text-ink outline-none transition focus:ring-3 focus:ring-white/30; }
+  .nav-search input { @apply h-10 min-w-0 w-full rounded-full border border-transparent py-0 pr-11 pl-4 text-sm text-ink outline-none transition focus:ring-3 focus:ring-white/30; }
   .nav-search button { @apply absolute right-1.5 flex size-7.5 cursor-pointer items-center justify-center rounded-full border-0 bg-blue-200 text-white; }
   .nav-actions { @apply flex shrink-0 items-center gap-2 sm:gap-4; }
   .nav-action-btn { @apply relative flex items-center gap-1.5 rounded-md px-2 py-2 font-medium whitespace-nowrap text-white transition hover:bg-white/15 sm:px-3; }
   .cart-badge { @apply absolute top-0.5 right-0.5 flex size-[18px] items-center justify-center rounded-full bg-accent text-xs font-bold text-[#232f3e]; }
 
   .footer { @apply mt-auto bg-[#232f3e] pt-12 text-slate-300; }
-  .footer-grid { @apply grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-8 pb-10; }
+  .footer-grid { @apply grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-8 pb-10; }
   .footer-col h4 { @apply mb-4 text-lg text-white; }
   .footer-col li { @apply mb-2.5; }
   .footer-col a { @apply transition hover:text-accent; }
@@ -66,28 +70,35 @@
   .toast-container { @apply fixed right-6 bottom-6 z-100 flex flex-col gap-2.5; }
   .toast { @apply flex items-center gap-2.5 rounded-[10px] bg-[#232f3e] px-5 py-3 font-medium text-white shadow-lg; }
 
-  .hero-section { @apply relative mb-10 bg-center bg-cover py-20 text-center text-white shadow-lg; background-image: linear-gradient(rgb(0 0 0 / .4), rgb(0 0 0 / .7)), url('../../src/assets/Sunrise.jpg'); }
+  .hero-section { @apply relative mb-10 w-full bg-center bg-cover py-20 text-center text-white shadow-lg; background-image: linear-gradient(rgb(0 0 0 / .4), rgb(0 0 0 / .7)), url('../../src/assets/Sunrise.jpg'); }
   .hero-title { @apply mb-4 text-4xl font-extrabold tracking-tight; }
   .hero-subtitle { @apply mx-auto mb-7 max-w-2xl text-xl text-slate-200; }
-  .features-banner { @apply mb-10 grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-5; }
+  .features-banner { @apply mb-10 grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-5; }
   .feature-card { @apply flex items-center gap-4 rounded-[10px] border border-slate-200 bg-white p-5 shadow-sm; }
   .feature-icon { @apply flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-light text-[1.4rem] text-brand; }
-  .category-grid { @apply mb-10 grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-5; }
+  .category-grid { @apply mb-10 grid grid-cols-[repeat(auto-fill,minmax(min(180px,100%),1fr))] gap-5; }
   .category-card { @apply cursor-pointer rounded-[10px] border border-slate-200 bg-white px-4 py-6 text-center transition hover:-translate-y-1 hover:border-brand hover:shadow-md; }
-  .category-card-icon { @apply mb-3 text-4xl; }
-  .product-grid { @apply mb-10 grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-6; }
-  .product-card { @apply relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-[0_12px_28px_rgb(3_90_148/0.15)]; }
+  .category-card-icon { @apply mb-3 flex h-14 w-full items-center justify-center text-5xl leading-none; }
+  .category-card-icon img { @apply h-12 w-12 object-contain; }
+  .product-grid { @apply mb-10 grid min-w-0 w-full grid-cols-[repeat(auto-fill,minmax(min(240px,100%),1fr))] gap-6; }
+  .product-card { @apply relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-[0_12px_28px_rgb(3_90_148/0.15)]; }
   .product-card-badge { @apply absolute top-3 left-3 z-2; }
   .product-card-img { @apply h-55 w-full border-b border-slate-200 bg-white p-5 object-contain; }
   .product-card-body { @apply flex flex-1 flex-col p-4; }
   .product-card-brand { @apply mb-1 text-xs font-semibold text-muted uppercase; }
-  .product-card-title { @apply mb-2 line-clamp-2 h-[2.6em] text-base leading-[1.3] font-semibold text-ink; }
+  .product-card-title { @apply mb-2 line-clamp-2 h-[2.6em] text-base leading-[1.3] font-semibold text-ink; overflow-wrap: anywhere; }
   .product-card-price { @apply my-3 flex items-baseline gap-2; }
   .price-current { @apply text-xl font-extrabold text-ink; }
   .price-list { @apply text-sm text-muted line-through; }
   .product-card-footer { @apply mt-auto flex gap-2; }
 
-  .catalog-layout { @apply grid items-start gap-7 lg:grid-cols-[260px_1fr]; }
+  .catalog-layout { @apply grid min-w-0 items-start gap-7 lg:grid-cols-[260px_minmax(0,1fr)]; }
+  /* Grid children may contain long unbreakable content (e.g. product titles);
+     never let their min-content width push the column past the viewport. */
+  .catalog-layout > *,
+  .product-detail-grid > *,
+  .cart-layout > *,
+  .profile-layout > * { min-width: 0; }
   .filter-sidebar { @apply rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:sticky lg:top-21; }
   .filter-section { @apply mb-5 border-b border-slate-200 pb-5 last:mb-0 last:border-0 last:pb-0; }
   .filter-title { @apply mb-3 text-base font-bold; }
@@ -95,7 +106,7 @@
   .filter-checkbox { @apply flex cursor-pointer items-center gap-2 text-sm; }
   .catalog-header { @apply mb-6 flex flex-wrap items-center justify-between gap-3 rounded-[10px] border border-slate-200 bg-white px-5 py-4; }
 
-  .product-detail-grid { @apply grid items-start gap-7 xl:grid-cols-[minmax(320px,440px)_1fr_minmax(280px,320px)]; }
+  .product-detail-grid { @apply grid items-start gap-7 xl:grid-cols-[minmax(320px,440px)_minmax(0,1fr)_minmax(280px,320px)]; }
   .gallery-container { @apply rounded-2xl border border-slate-200 bg-white p-5; }
   .gallery-main { @apply mb-4 h-95 w-full object-contain; }
   .gallery-thumbs { @apply flex gap-2.5 overflow-x-auto pb-1.5; }
@@ -110,9 +121,9 @@
   .buy-box-price { @apply mb-1 text-[2rem] font-extrabold text-ink; }
   .stock-tag { @apply mb-4 block text-sm font-semibold text-emerald-500; }
 
-  .cart-layout { @apply grid items-start gap-7 xl:grid-cols-[1fr_340px]; }
+  .cart-layout { @apply grid items-start gap-7 xl:grid-cols-[minmax(0,1fr)_340px]; }
   .cart-table-card { @apply rounded-2xl border border-slate-200 bg-white p-6; }
-  .cart-item { @apply grid grid-cols-[80px_1fr] items-center gap-4 border-b border-slate-200 py-4 last:border-0 md:grid-cols-[80px_1fr_auto_auto]; }
+  .cart-item { @apply grid grid-cols-[80px_minmax(0,1fr)] items-center gap-4 border-b border-slate-200 py-4 last:border-0 md:grid-cols-[80px_minmax(0,1fr)_auto_auto]; }
   .qty-picker { @apply flex items-center overflow-hidden rounded-[10px] border border-slate-200; }
   .qty-picker button { @apply size-8 cursor-pointer border-0 bg-slate-100 font-bold; }
   .qty-picker input { @apply w-10 border-0 text-center font-semibold outline-none; }
@@ -127,7 +138,7 @@
 
   .auth-card { @apply mx-auto my-10 max-w-[420px] rounded-2xl border border-slate-200 bg-white p-9 shadow-lg; }
   .auth-header { @apply mb-6 text-center; }
-  .profile-layout { @apply grid gap-7 lg:grid-cols-[240px_1fr]; }
+  .profile-layout { @apply grid gap-7 lg:grid-cols-[240px_minmax(0,1fr)]; }
   .profile-nav-card { @apply rounded-2xl border border-slate-200 bg-white p-4; }
   .profile-nav-item { @apply mb-1 flex items-center gap-3 rounded-[10px] px-4 py-3 font-medium text-ink transition hover:bg-brand-light hover:text-brand; }
   .profile-nav-item.active { @apply bg-brand-light text-brand; }
