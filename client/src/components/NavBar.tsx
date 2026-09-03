@@ -19,8 +19,8 @@ function NavBar() {
         </div>
 
         <nav className= {`nav-menu ${isMenuOpen? 'open' : ''}`}>
-          <a href="/" className="nav-link active">Home</a>
-          <a href="products.html" className="nav-link">Products</a>
+          <a href="/home" className="nav-link active">Home</a>
+          <a href="/products" className="nav-link">Products</a>
           <a href="offers.html" className="nav-link">Offers</a>
           <a href="about.html" className="nav-link">About Us</a>
         </nav>
@@ -33,7 +33,7 @@ function NavBar() {
         </div>
 
         <div className="nav-actions">
-          <a href="login.html" className="nav-action-btn">👤 Login</a>
+          <a href="/login" className="nav-action-btn">👤 Login</a>
           <a href="cart.html" className="nav-action-btn">
             🛒 Cart
             <span className="cart-badge">3</span>

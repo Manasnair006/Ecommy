@@ -5,6 +5,8 @@ import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
 import { Product } from "../data/Product";
 import productFetcher from "../randomKids/productFetcher";
+import Footer from "../components/Footer";
+import NavBar from "../components/NavBar";
 
 export interface Filters {
     categoryIds: number[];
@@ -76,36 +78,42 @@ export default function ProductsPage(){
     }, [filters, sort, page])
 
     return(
-        <div className="container">
-            <div className="catalog-layout">
-                
-                <FilterSidebar filters={filters} 
-                    setFilters={(newFilters)=>{
-                        setFilters(newFilters);
-                        setPage(1);
-                     }}
-                    ratingOptions={ratingOptions}/>
+        <>
+            <NavBar />
+            <main className="page-wrapper" >
+                <div className="container">
+                    <div className="catalog-layout">
+                        
+                        <FilterSidebar filters={filters} 
+                            setFilters={(newFilters)=>{
+                                setFilters(newFilters);
+                                setPage(1);
+                            }}
+                            ratingOptions={ratingOptions}/>
 
-                <div className="min-w-0">
-                    <Catalogheader sort={sort} setSort={setSort} totalProducts={totalProducts} page={page}/>
+                        <div className="min-w-0">
+                            <Catalogheader sort={sort} setSort={setSort} totalProducts={totalProducts} page={page}/>
 
-                    {loading? (
-                        <div> Loading...... </div>
-                    ):(
-                        <div className="product-grid">
-                            {products.map((prod)=>{
-                                return(
-                                    <ProductCard key={prod.asin}
-                                        {...prod} />
-                                )
-                            })}
+                            {loading? (
+                                <div> Loading...... </div>
+                            ):(
+                                <div className="product-grid">
+                                    {products.map((prod)=>{
+                                        return(
+                                            <ProductCard key={prod.asin}
+                                                {...prod} />
+                                        )
+                                    })}
+                                </div>
+                            )}
+            
+                            <Paginationbar currentPage={page} totalPages={totalPages} onPageChange={setPage}/>
                         </div>
-                    )}
-    
-                    <Paginationbar currentPage={page} totalPages={totalPages} onPageChange={setPage}/>
-                </div>
-            </div>
+                    </div>
 
-        </div>
+                </div>
+            </main>
+            <Footer />
+        </>
     )
 }

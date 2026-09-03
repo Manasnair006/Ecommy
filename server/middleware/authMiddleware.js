@@ -1,26 +1,25 @@
 const jwt = require("jsonwebtoken")
 
-module.exports = async (req, res, next) =>{
-    const auth = req.headers.authorization;
-    if(!auth){
-        res.status(401).json({
+module.exports = async (req, res, next) => {
+    const token = req.cookies?.accessToken || (req.headers.authorization?.startsWith("Bearer ") ? req.headers.authorization.split(" ")[1] : null);
+    
+    if (!token) {
+        return res.status(401).json({
             success: false,
             message: "Unauthorized"
-        })
+        });
     }
-
-    const token = auth.split(" ")[1]
-    try{
-        const decoded = await jwt.verify(
+    try {
+        const decoded = jwt.verify(
             token, 
             process.env.JWT_SECRET
-        )
+        );
 
-        req.user = decoded
+        req.user = decoded;
         next();
-    }catch(err){
+    } catch (err) {
         return res.status(401).json({
             message: "Invalid Token"
-        })
+        });
     }
-}
+};
