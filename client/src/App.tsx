@@ -3,8 +3,8 @@ import HeroPage from "./pages/HeroPage";
 import Homepage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import RegisterPage from "./pages/RegisterPage";
-import Loginpage from "./pages/LoginPage";
 import LoginPage from "./pages/LoginPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
 /*<Route path="/products" element={} />
                     <Route path="/product/:id" element={} />
                     <Route path="/login" element={} />
@@ -22,6 +22,7 @@ export default function App(){
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/products/:asin" element={<ProductDetailsPage />} />
             </Routes>
         </BrowserRouter>
     ); 

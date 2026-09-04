@@ -11,7 +11,11 @@ exports.getProductWithAsin = async(req,res)=>{
 
         const product = await Product.findOne({
             asin: asin
-        }).select("title imgUrl price listPrice").lean()
+        }).select(
+            "asin title imgUrl price listPrice " +
+            "stars reviews boughtInLastMonth isBestSeller " +
+            "description highlights specifications category_id")
+        .lean()
 
         if(!product){
             return res.status(404).json({
@@ -19,8 +23,36 @@ exports.getProductWithAsin = async(req,res)=>{
                 message: "Product Not Found"
             });
         }
+
+        // Generic fallback 
+        if (!product.description) {
+            product.description =
+                `${product.title} is designed for everyday use with a practical and convenient design.`;
+        }
+
+        if (!product.highlights || product.highlights.length === 0) {
+            product.highlights = [
+                "Designed for everyday use",
+                "Practical and convenient design",
+                "Easy to use",
+                "Suitable for a variety of needs"
+            ];
+        }
+
+        if (!product.specifications || product.specifications.length === 0) {
+            product.specifications = [
+                {
+                    name: "Product Type",
+                    value: "General Product"
+                },
+                {
+                    name: "Use",
+                    value: "Everyday Use"
+                }
+            ];
+        }
+
         return res.status(200).json({
-            success: true,
             product
         })
         
