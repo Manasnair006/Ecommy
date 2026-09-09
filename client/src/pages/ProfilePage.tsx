@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import api from "../config/api";
 import axios from "axios";
+import MinimalFooter from "../components/MinimalFooter";
 
 type active = 
     | "info"
@@ -324,11 +325,7 @@ export default function ProfilePage(){
                 </div>
             </main>
 
-            <footer className="footer">
-                <div className="container footer-bottom">
-                &copy; 2026 ECOMMY Inc. All rights reserved.
-                </div>
-            </footer>
+            <MinimalFooter />
         </>
     )
 }

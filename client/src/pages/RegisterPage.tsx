@@ -3,6 +3,7 @@ import api from "../config/api";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import MinimalFooter from "../components/MinimalFooter";
 
 
 interface FormData{
@@ -170,11 +171,7 @@ export default function RegisterPage(){
                 </div>
             </main>
 
-            <footer className="footer">
-                <div className="container footer-bottom">
-                &copy; 2026 ECOMMY Inc. All rights reserved.
-                </div>
-            </footer>
+            <MinimalFooter />
         </>
     )
 }

@@ -3,6 +3,7 @@ import api from "../config/api";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import MinimalFooter from "../components/MinimalFooter";
 
 interface LoginData{
     email: string;
@@ -135,11 +136,7 @@ export default function LoginPage(){
                 </div>
             </main>
 
-            <footer className="footer">
-                <div className="container footer-bottom">
-                &copy; 2026 ECOMMY Inc. All rights reserved.
-                </div>
-            </footer>
+            <MinimalFooter />
         </>
     )
 }
