@@ -5,13 +5,8 @@ import ProductsPage from "./pages/ProductsPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
-/*<Route path="/products" element={} />
-                    <Route path="/product/:id" element={} />
-                    <Route path="/login" element={} />
-                    <Route path="/register" element={} />
-                    <Route path="/orders" element={} />
-                    <Route path="/cart" element={} />
-                    */
+import ProfilePage from "./pages/ProfilePage";
+
 
 export default function App(){
     return(
@@ -23,6 +18,7 @@ export default function App(){
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/products/:asin" element={<ProductDetailsPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
             </Routes>
         </BrowserRouter>
     ); 

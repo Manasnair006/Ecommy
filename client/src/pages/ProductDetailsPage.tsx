@@ -69,6 +69,14 @@ export default function ProductDetailsPage(){
         loadProduct();
     },[])
     
+    if(error){
+        return(
+            <div>
+                {error}
+            </div>
+        )
+    }
+
     if(loading){
         return(
             <div>

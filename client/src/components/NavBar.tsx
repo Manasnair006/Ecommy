@@ -2,9 +2,12 @@ import { useState } from 'react';
 import sandwichIcon from '../assets/sandwichbar.png';
 import searchIcon from '../assets/search.png';
 import "../styles/tailwind.css"
+import { useAuth } from '../context/AuthContext';
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const user = useAuth()?.user
+  const loadingUser = useAuth()?.loading
   return (
     <header className="navbar">
       <div className="container navbar-inner">
@@ -33,7 +36,10 @@ function NavBar() {
         </div>
 
         <div className="nav-actions">
-          <a href="/login" className="nav-action-btn">👤 Login</a>
+          {loadingUser? "Loding" :user
+            ? <a href="/profile" className="nav-action-btn">Hello! {(user as { name?: string }).name}</a>
+            : <a href="/login" className="nav-action-btn">👤 Login</a>
+          }
           <a href="cart.html" className="nav-action-btn">
             🛒 Cart
             <span className="cart-badge">3</span>

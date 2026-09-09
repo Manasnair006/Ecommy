@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import api from "../config/api";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 interface LoginData{
     email: string;
@@ -9,6 +10,8 @@ interface LoginData{
 }
 
 export default function LoginPage(){
+
+    const setUser = useAuth()?.setUser
 
     const [loginData, setLoginData] = useState<LoginData>({
         email: "",
@@ -40,6 +43,8 @@ export default function LoginPage(){
             console.log("Login response: ", response.data)
             const respon2 = await api.get("/api/auth/me")
             console.log("Authenticated User: ", respon2.data)
+
+            setUser && setUser(respon2.data)
             navigate("/home")
         }catch(err){
             if(axios.isAxiosError(err)){

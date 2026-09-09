@@ -25,7 +25,7 @@
 
 @layer components {
   .container { @apply mx-auto w-full max-w-7xl px-5; }
-  .page-wrapper { @apply flex-1; }
+  .page-wrapper { @apply flex-1 my-5; }
 
   .navbar { @apply sticky top-0 z-50 bg-brand text-white shadow-md; }
   .navbar-inner { @apply relative flex h-16 flex-nowrap items-center justify-between gap-4; }
@@ -158,4 +158,45 @@
   .nav-search { @apply max-w-none flex-none; }
   .nav-search input { @apply hidden; }
   .nav-search button { @apply static size-10 bg-transparent; }
+}
+
+.logout-modal-overlay {
+  @apply fixed inset-0 z-[100] flex items-center justify-center bg-[#111827]/45 p-5 backdrop-blur-[6px];
+}
+
+.logout-modal {
+  @apply w-full max-w-[400px] rounded-2xl border border-slate-200 bg-white p-7 text-center shadow-[0_20px_60px_rgb(3_90_148/0.2)];
+  animation: logout-modal-in 0.18s ease-out;
+}
+
+.logout-modal-icon {
+  @apply mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-brand-light text-xl font-extrabold text-brand;
+}
+
+.logout-modal h2 {
+  @apply mb-2 text-2xl font-bold text-ink;
+}
+
+.logout-modal p {
+  @apply mb-6 text-sm leading-relaxed text-muted;
+}
+
+.logout-modal-actions {
+  @apply flex justify-end gap-3;
+}
+
+.logout-modal-actions .btn {
+  @apply min-w-[100px];
+}
+
+@keyframes logout-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

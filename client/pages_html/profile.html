@@ -67,7 +67,7 @@
         <div class="card" style="padding:28px;">
           
           <!-- Tab 1: Personal Info -->
-          <div id="tab-info" class="tab-pane active">
+          <div id="tab-info" class="tab-pane">
             <h2 style="font-size:1.3rem; font-weight:700; margin-bottom:20px;">Personal Information</h2>
             <form onSubmit="event.preventDefault(); showToast('Profile details updated successfully!');">
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
@@ -93,7 +93,7 @@
           </div>
 
           <!-- Tab 2: Addresses -->
-          <div id="tab-addresses" class="tab-pane" style="display:none;">
+          <div id="tab-addresses" class="tab-pane active">
             <h2 style="font-size:1.3rem; font-weight:700; margin-bottom:20px;">Saved Addresses</h2>
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
               <div style="border:1px solid var(--border-color); padding:16px; border-radius:var(--radius-md);">

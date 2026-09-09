@@ -1,6 +1,5 @@
 const User = require("../models/User")
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
 const generateToken = require("../utils/jwtHelper")
 
 exports.register = async (req, res) =>{
@@ -119,6 +118,25 @@ exports.me = async (req, res) =>{
         console.error(err)
         res.status(500).json({
             message: "Internal Server Error"
+        })
+    }
+}
+
+exports.logout = async (req, res) =>{
+    try{
+        res.clearCookie("accessToken", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax"
+        })
+
+        res.status(200).json({
+            message:"Logged Out Successfully"
+        })
+    }catch(err){
+        console.log(err)
+        res.status(500).json({
+            message:"Internal Server Error"
         })
     }
 }
