@@ -7,11 +7,13 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import roundToHalf from "../randomKids/starsRounder";
 import { useCart } from "../context/CartContext";
+import useNotification from "../context/NotificationContext";
 
 export default function ProductDetailsPage(){
     const { asin } = useParams()
 
     const { addToCart } = useCart()
+    const { notify } = useNotification()
 
     const [productData, setProductData] = useState<ProductDetails>({
         _id: "",
@@ -27,7 +29,8 @@ export default function ProductDetailsPage(){
         stars: 0,
         description:"",
         highlights: [],
-        specifications: []
+        specifications: [],
+        quantity:0,
     })
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState("")
@@ -38,7 +41,7 @@ export default function ProductDetailsPage(){
                 setLoading(true)
 
                 const response = await api.get(`/api/products/${asin}`)
-                const product: ProductDetails = response.data.product
+                const product = response.data.product
                 console.log(response.data)
 
                 setProductData({
@@ -55,7 +58,8 @@ export default function ProductDetailsPage(){
                     stars: product.stars,
                     description: product.description,
                     highlights: product.highlights,
-                    specifications: product.specifications
+                    specifications: product.specifications,
+                    quantity: 1
                 })
             }catch(err){
                 if(axios.isAxiosError(err)){
@@ -72,12 +76,18 @@ export default function ProductDetailsPage(){
         loadProduct();
     },[])
     
+    const handleProductQuantity = (quantity: number) =>{
+        setProductData((prev)=> ({
+            ...prev,
+            quantity: quantity
+        }))
+    }
+
     if(error){
-        return(
-            <div>
-                {error}
-            </div>
-        )
+        notify({
+            type: "error",
+            message: error
+        })
     }
 
     if(loading){
@@ -166,13 +176,22 @@ export default function ProductDetailsPage(){
                             <div className="mb-4">
                                 <label className="text-[0.85rem] font-semibold block mb-1.5">Quantity:</label>
                                 <div className="qty-picker">
-                                    <button className="qty-minus">-</button>
-                                        <input type="text" value="1" readOnly />
-                                    <button className="qty-plus">+</button>
+                                    <button className="qty-minus"
+                                        disabled={productData.quantity === 1}
+                                        onClick={()=>{
+                                            handleProductQuantity(productData.quantity-1)
+                                        }}>-
+                                    </button>
+                                    <input type="text" value={productData.quantity} readOnly />
+                                    <button className="qty-plus"
+                                        onClick={()=>{
+                                            handleProductQuantity(productData.quantity+1)
+                                        }}>+
+                                    </button>
                                 </div>
                             </div>
 
-                            <button className="btn btn-primary btn-block btn-lg mb-3" data-add-cart onClick={()=>{addToCart({asin: productData.asin})}}>
+                            <button className="btn btn-primary btn-block btn-lg mb-3" data-add-cart onClick={()=>{addToCart({asin: productData.asin, quantity: productData.quantity})}}>
                                 🛒 Add to Cart
                             </button>
                             

@@ -60,14 +60,8 @@ export default function ProductsPage(){
                 console.log(data)
 
                 setProducts(data.products)
-                setTotalPages(data.totalPages > 50
-                    ? 50
-                    : data.totalPages
-                )
-                setTotalProducts(data.totalProducts> 100
-                    ? 100
-                    : data.totalProducts
-                )
+                setTotalPages(data.totalPages)
+                setTotalProducts(data.totalProducts)
             }catch(err){
                 console.error("Failed to catch products", err)
             } finally{

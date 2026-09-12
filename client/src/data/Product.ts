@@ -24,6 +24,7 @@ export interface ProductDetails {
     isBestSeller: boolean;
     reviews: number;
     stars: number;
+    quantity: number
 
     description:string;
 

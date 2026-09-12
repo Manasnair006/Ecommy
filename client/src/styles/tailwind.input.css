@@ -93,6 +93,9 @@
   .price-current { @apply text-xl font-extrabold text-ink; }
   .price-list { @apply text-sm text-muted line-through; }
   .product-card-footer { @apply mt-auto flex gap-2; }
+  .product-carousel-item { @apply w-60 shrink-0; }
+  .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
 
   .catalog-layout { @apply grid min-w-0 items-start gap-7 lg:grid-cols-[260px_minmax(0,1fr)]; }
   /* Grid children may contain long unbreakable content (e.g. product titles);

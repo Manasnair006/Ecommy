@@ -1,6 +1,7 @@
 import "../styles/tailwind.css"
 import { Product } from "../data/Product";
 import ProductCard from "./ProductCard";
+import ProductCarousel from "./ProductCarousel";
 
 interface TopCategorySectionProps{
     id?:number;
@@ -21,13 +22,14 @@ export default function TopCategorySection({id, name, products}:TopCategorySecti
                 <a href={`products.html/${id}`} className="text-ink font-semibold" >Explore {name} →</a>
             </div>
             
-            <div className="product-grid">
-                {products.map((prod) =>{
-                    return(
-                        <ProductCard key={prod.asin} {...prod}/>
-                    )
-                })}
-            </div>
+            <ProductCarousel>
+                {products.map((prod) => (
+                    <div key={prod.asin} className="product-carousel-item">
+                        <ProductCard {...prod} />
+                    </div>
+                ))}
+            </ProductCarousel>
+            
       </section>
     )
 }

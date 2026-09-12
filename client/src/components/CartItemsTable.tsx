@@ -1,11 +1,43 @@
+import { useRef, useState } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function CartItemsTable(){
 
-    const { cart, cartLoading, removeItem, deleteCart} = useCart()
+    const [ removingItemAsin, setRemovingItemAsin ] = useState<string | null>(null)
+    const { cart, setCart, cartLoading, removeItem, deleteCart, updateItemQuantity } = useCart()
+
+    const debounceTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({})
+
+    const handleQuantity = ({asin, quantity}:{asin: string, quantity: number}) =>{
+        setCart((prev)=>(
+            prev.map((item)=>{
+                if(item.asin === asin){
+                    return({
+                        ...item,
+                        quantity: quantity
+                    })
+                }
+                return(item)
+            })
+        ))
+        if(debounceTimers.current[asin]){
+            clearTimeout(debounceTimers.current[asin])
+        }
+
+        const timer = setTimeout(async()=>{
+            await updateItemQuantity({
+                asin: asin,
+                quantity: quantity
+            })
+        },500)
+        debounceTimers.current[asin] = timer
+    }
 
     return(
         <div className="cart-table-card">
+            {
+                cartLoading && <div>Loading Items...</div>
+            }
           
             {cart
                 ? cart.map((item)=>{
@@ -19,16 +51,36 @@ export default function CartItemsTable(){
                             </div>
                             <div>
                                 <div className="qty-picker">
-                                    <button className="qty-minus">-</button>
+                                    <button className="qty-minus"
+                                        disabled={item.quantity === 1} 
+                                        onClick={()=> handleQuantity({
+                                            asin: item.asin,
+                                            quantity: (item.quantity-1)})
+                                        }>
+                                        -
+                                    </button>
                                     <input type="text" value={item.quantity} readOnly />
-                                    <button className="qty-plus">+</button>
+                                    <button className="qty-plus"
+                                        onClick={()=>{
+                                            handleQuantity({
+                                                asin: item.asin,
+                                                quantity: (item.quantity+1)
+                                            })
+                                        }}>+
+                                    </button>
                                 </div>
                             </div>
                             <div className="text-right">
                                 <div className="text-[1.2rem] font-extrabold text-ink" >${item.price}</div>
-                                {cartLoading
+                                {removingItemAsin === item.asin
                                     ?<button className="bg-none border-none text-muted text-[0.85rem] mt-2 cursor-pointer" disabled>Removing Item...</button>
-                                    :<button className="bg-none border-none text-red-500 text-[0.85rem] mt-2 cursor-pointer" onClick={() => removeItem({asin: item.asin})}>Remove</button>
+                                    :<button className="bg-none border-none text-red-500 text-[0.85rem] mt-2 cursor-pointer" 
+                                        onClick={() => {
+                                            setRemovingItemAsin(item.asin)
+                                            removeItem({asin: item.asin})
+                                        }}>
+                                            Remove
+                                    </button>
                                 }                            
                             </div>
                         </div>

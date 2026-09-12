@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 import CartItem from "../data/Cart";
 import { useAuth } from "./AuthContext";
 import axios from "axios";
@@ -7,6 +7,7 @@ import useNotification from "./NotificationContext";
 
 interface CartContextValues{
     cart: CartItem[] | [];
+    setCart: Dispatch<SetStateAction<CartItem[] | []>>;
     cartLength: number;
     cartLoading: boolean;
     addToCart: ({ asin, quantity }: { asin: string; quantity?: number;}) => Promise<void>;
@@ -47,7 +48,8 @@ export const CartProvider = ({children}:{children:ReactNode}) =>{
 
             user && 
                 await api.post(`/api/cart/`, {
-                    asin: asin   
+                    asin: asin,
+                    quantity: quantity   
                 })
 
             notify({
@@ -81,7 +83,7 @@ export const CartProvider = ({children}:{children:ReactNode}) =>{
             console.log(err)
             notify({
                 type: 'error',
-                message: err.response?.data?.message || "Error adding to cart"
+                message: err.response?.data?.message || "Error upating item quantity"
             })
         }
     }
@@ -101,7 +103,7 @@ export const CartProvider = ({children}:{children:ReactNode}) =>{
             console.log(err)
             notify({
                 type: 'error',
-                message: err.response?.data?.message || "Error adding to cart"
+                message: err.response?.data?.message || "Error removing cart item"
             })
         }
     }
@@ -121,7 +123,7 @@ export const CartProvider = ({children}:{children:ReactNode}) =>{
            console.log(err)
             notify({
                 type: 'error',
-                message: err.response?.data?.message || "Error adding to cart"
+                message: err.response?.data?.message || "Error clearing cart"
             }) 
         }
     }
@@ -135,7 +137,7 @@ export const CartProvider = ({children}:{children:ReactNode}) =>{
     }, [user])
 
     return(
-        <CartContext.Provider value={{cart, cartLoading, cartLength:cart.length, addToCart, updateItemQuantity, removeItem, deleteCart}} >
+        <CartContext.Provider value={{cart, setCart, cartLoading, cartLength:cart.length, addToCart, updateItemQuantity, removeItem, deleteCart}} >
             {children}
         </CartContext.Provider>
     )
