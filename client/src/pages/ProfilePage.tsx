@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import logout from "../randomKids/logout";
 import { useAuth } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import api from "../config/api";
@@ -27,7 +26,7 @@ interface SecurityData {
 export default function ProfilePage(){
 
 
-    let { user, setUser, loading } = useAuth()
+    let { user, logout, setUser, loading } = useAuth()
     const [profileData, setProfileData] = useState<ProfileData>({name:"", email:"", phone:"", address:""})
     const [securityData, setSecurityData] = useState<SecurityData>({currentPassword:"", newPassword:"", confirmNewPassword:""})
     const [ submitting, setSubmitting ] = useState(false)
@@ -124,7 +123,7 @@ export default function ProfilePage(){
     }, [])
 
     const handleLogout = async() =>{
-        await logout(setUser);
+        await logout();
         setShowLogoutModal(false)
     }
 

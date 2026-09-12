@@ -17,7 +17,7 @@ exports.getCart = async (req, res) =>{
 
         const products = await Product.find(
             { asin : {$in : asins}}
-        ).select("asin  title imageUrl price listPrice stars").lean()
+        ).select("asin  title imgUrl price listPrice stars").lean()
 
         const productMap = new Map(
             products.map(product=> [
@@ -63,6 +63,7 @@ exports.addToCart = async (req, res) =>{
             { asin: asin}
         ).select("asin").lean()
         if(!product){
+            console.log("Product illa")
             return res.status(404).json({
                 message:"Product Not Found"
             })
@@ -192,7 +193,7 @@ exports.deleteCart = async (req, res) =>{
             { userId: req.user.id}
         )
         if(!cart){
-            return res.status(200).json({
+            return res.status(404).json({
                 message: "Cart already empty"
             })
         }

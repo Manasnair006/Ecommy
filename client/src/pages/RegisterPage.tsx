@@ -1,9 +1,7 @@
 import React, { useState } from "react"
-import api from "../config/api";
-
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import MinimalFooter from "../components/MinimalFooter";
+import { useAuth } from "../context/AuthContext";
 
 
 interface FormData{
@@ -16,6 +14,8 @@ interface FormData{
 
 export default function RegisterPage(){
 
+    const { user, loading, register } = useAuth()
+
     const [formData, setFormData] = useState<FormData>({
         name: "",
         email: "",
@@ -23,7 +23,6 @@ export default function RegisterPage(){
         confirmPassword: ""
     });
 
-    const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
     const navigate = useNavigate()
 
@@ -34,6 +33,10 @@ export default function RegisterPage(){
             [name]: value,
         }));
     };
+
+    if(user){
+        navigate("/home")
+    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
@@ -48,33 +51,20 @@ export default function RegisterPage(){
             setError("Password should contain at least 8 characters.")
             return;
         }
-        try{
-            setLoading(true)
+        
+        console.log("Sending registration request...", formData.email)
+        const response = await register({
+            name: formData.name, 
+            email: formData.email,
+            password: formData.password
+        })
 
-            console.log("Sending registration request...", formData.email)
-            const response = await api.post("/api/auth/register", {
-               name: formData.name,
-               email: formData.email,
-               password: formData.password
-            });
-            console.log("Registration response:", response.data)
-            const respo2 = await api.get("/api/auth/me")
-            console.log("Authenticated user:", respo2.data)
+        if(response.success){
             navigate("/home")
-            
-        }catch(err){
-            if(axios.isAxiosError(err)){
-                setError(
-                    err.response?.data?.message ||
-                    "Registration failed. Please try again."
-                )
-            }else{
-                console.error(err)
-                setError("Something Went Wrong")
-            }
-        }finally{
-            setLoading(false)
+        }else{
+            setError(response.message)
         }
+        
     }
 
     return(

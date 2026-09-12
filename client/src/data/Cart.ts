@@ -1,9 +1,10 @@
-export interface CartItem{
+export default interface CartItem{
     asin: string;
-    quaantity: number
-}
-
-export default interface Cart{
-    userId: string;
-    items: CartItem[]
+    imgUrl: string;
+    listPrice: number;
+    price: number;
+    quantity: number;
+    stars: number;
+    title: string;
+    _id: string;
 }

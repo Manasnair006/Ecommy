@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import ProfilePage from "./pages/ProfilePage";
+import Cartpage from "./pages/CartPage";
 
 
 export default function App(){
@@ -19,6 +20,7 @@ export default function App(){
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/products/:asin" element={<ProductDetailsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/cart" element={<Cartpage />} />
             </Routes>
         </BrowserRouter>
     ); 

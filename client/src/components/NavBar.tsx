@@ -3,10 +3,12 @@ import sandwichIcon from '../assets/sandwichbar.png';
 import searchIcon from '../assets/search.png';
 import "../styles/tailwind.css"
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const user = useAuth()?.user
+  const {cartLength} = useCart()
   const loadingUser = useAuth()?.loading
   return (
     <header className="navbar">
@@ -40,9 +42,9 @@ function NavBar() {
             ? <a href="/profile" className="nav-action-btn">Hello! {(user as { name?: string }).name}</a>
             : <a href="/login" className="nav-action-btn">👤 Login</a>
           }
-          <a href="cart.html" className="nav-action-btn">
+          <a href="cart" className="nav-action-btn">
             🛒 Cart
-            <span className="cart-badge">3</span>
+            <span className="cart-badge" hidden={cartLength? false : true}>{cartLength}</span>
           </a>
         </div>
       </div>

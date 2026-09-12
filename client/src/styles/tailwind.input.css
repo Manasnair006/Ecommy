@@ -15,7 +15,9 @@
 
 @layer base {
   html {
-    overflow-x: hidden;
+    /* clip (not hidden): prevents horizontal scrollbar without making
+       html a scroll container (which would break position:sticky) */
+    overflow-x: clip;
   }
   body { @apply flex min-h-screen flex-col bg-surface font-sans leading-normal text-ink; }
   #root { display: flex; flex-direction: column; }
@@ -199,4 +201,25 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes shrink {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
 }

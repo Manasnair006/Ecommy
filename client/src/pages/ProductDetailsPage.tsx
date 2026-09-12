@@ -6,9 +6,12 @@ import api from "../config/api";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import roundToHalf from "../randomKids/starsRounder";
+import { useCart } from "../context/CartContext";
 
 export default function ProductDetailsPage(){
     const { asin } = useParams()
+
+    const { addToCart } = useCart()
 
     const [productData, setProductData] = useState<ProductDetails>({
         _id: "",
@@ -122,7 +125,7 @@ export default function ProductDetailsPage(){
                                 <a href="#reviews" className="text-[0.9rem] text-ink font-semibold" >{productData.reviews} Customer Ratings</a>
                             </div>
 
-                            <hr className="border-none border-t-1 text-(--border-color) my-4 " />
+                            <hr className="border-none border-t text-(--border-color) my-4 " />
 
                             <h3 className="text-[1.1rem] font-bold mb-3" >Description</h3>
                             <p>{productData.description}</p>
@@ -169,7 +172,7 @@ export default function ProductDetailsPage(){
                                 </div>
                             </div>
 
-                            <button className="btn btn-primary btn-block btn-lg mb-3" data-add-cart>
+                            <button className="btn btn-primary btn-block btn-lg mb-3" data-add-cart onClick={()=>{addToCart({asin: productData.asin})}}>
                                 🛒 Add to Cart
                             </button>
                             

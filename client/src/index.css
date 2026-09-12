@@ -20,10 +20,12 @@
     min-height: 100vh;
   }
 
-  /* Never allow an accidental horizontal scrollbar to break the layout */
+  /* Never allow an accidental horizontal scrollbar to break the layout.
+     Uses clip (not hidden) so html/body don't become scroll containers,
+     which would break position:sticky on the navbar. */
   html,
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Make the app shell a full-height flex column so every page stretches

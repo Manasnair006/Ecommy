@@ -1,7 +1,5 @@
 import React, { useState } from "react"
-import api from "../config/api";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import MinimalFooter from "../components/MinimalFooter";
 
@@ -12,13 +10,13 @@ interface LoginData{
 
 export default function LoginPage(){
 
-    const setUser = useAuth()?.setUser
+    const { user, loading, login } = useAuth()
 
     const [loginData, setLoginData] = useState<LoginData>({
         email: "",
         password: ""
     });
-    const [loading, setLoading] = useState(false);
+
     const [error, setError] = useState("")
     const navigate = useNavigate()
 
@@ -30,37 +28,26 @@ export default function LoginPage(){
         }))
     }
 
+    if(user){
+        navigate("/home")
+    }
+
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) =>{
         e.preventDefault()
         setError("")
-        try{
-            setLoading(true)
-
-            console.log("Sending login req.....")
-            const response = await api.post("/api/auth/login", {
-                email: loginData.email,
-                password: loginData.password
-            })
-            console.log("Login response: ", response.data)
-            const respon2 = await api.get("/api/auth/me")
-            console.log("Authenticated User: ", respon2.data)
-
-            setUser && setUser(respon2.data)
-            navigate("/home")
-        }catch(err){
-            if(axios.isAxiosError(err)){
-                setError( 
-                    err.response?.data?.message ||
-                    "Login Unsuccessful. Please Try Again!")
-                console.log(err)
-            }else{
-                console.error(err)
-                setError("Server Error. Try Again")
-            }
-        }finally{
-            setLoading(false)
-        }
         
+
+        console.log("Sending login req.....")
+        const response = await login({
+            email: loginData.email,
+            password: loginData.password
+        })
+
+        if(response.success){
+            navigate("/home")
+        }else{
+            setError(response.message)
+        }   
     }
 
 
