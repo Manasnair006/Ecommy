@@ -28,7 +28,7 @@ export default function OrderSummaryCard(){
         total: 0
     })
 
-    const { cart } = useCart()
+    const { cart, setDiscount, discount } = useCart()
     const { notify } = useNotification()
 
     const [ loading, setLoading ] = useState(true)
@@ -41,6 +41,7 @@ export default function OrderSummaryCard(){
                 name: found.code,
                 value: found.value
             })
+            setDiscount(found.value)
             notify({
                 type: "success",
                 message: "Coupon Applied Successfully"
@@ -67,8 +68,8 @@ export default function OrderSummaryCard(){
             subTotal: Number(totalPrices.toFixed(2)),
             shipping: Number(totalShipping.toFixed(2)),
             tax: Number(totalTaxes.toFixed(2)),
-            coupon: Number((totalPrices * (coupon.value/100)).toFixed(2)),
-            total: Number((totalPrices + totalTaxes - (totalPrices * (coupon.value/100))).toFixed(2))
+            coupon: Number((totalPrices * (discount/100)).toFixed(2)),
+            total: Number((totalPrices + totalTaxes - (totalPrices * (discount/100))).toFixed(2))
         })
         
         setLoading(false)

@@ -14,6 +14,8 @@ interface CartContextValues{
     updateItemQuantity: ({ asin, quantity }: {asin: string; quantity: number;}) => Promise<void>;
     removeItem: ({ asin }: { asin: string;}) => Promise<void> ;
     deleteCart: () => Promise<void>;
+    discount: number;
+    setDiscount: Dispatch<SetStateAction<number>>
 }
 
 const CartContext = createContext<CartContextValues | null>(null)
@@ -41,6 +43,8 @@ export const CartProvider = ({children}:{children:ReactNode}) =>{
             setCartLoading(false)
         }
     }
+
+    const [discount, setDiscount] = useState(0)
 
     const addToCart = async({asin, quantity = 1}:{asin: string, quantity?:number}) =>{
         try{
@@ -137,7 +141,7 @@ export const CartProvider = ({children}:{children:ReactNode}) =>{
     }, [user])
 
     return(
-        <CartContext.Provider value={{cart, setCart, cartLoading, cartLength:cart.length, addToCart, updateItemQuantity, removeItem, deleteCart}} >
+        <CartContext.Provider value={{cart, setCart, cartLoading, cartLength:cart.length, addToCart, updateItemQuantity, removeItem, deleteCart, discount, setDiscount}} >
             {children}
         </CartContext.Provider>
     )

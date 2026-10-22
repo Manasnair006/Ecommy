@@ -54,6 +54,11 @@ const orderSchema = new mongoose.Schema(
             default: "pending"
         },
         payment:{
+            method:{
+                type: String,
+                enum:["COD", "Razorpay"],
+                required: true
+            },
             razorpayOrderId:{
                 type: String
             },
@@ -71,6 +76,20 @@ const orderSchema = new mongoose.Schema(
                     "failed"
                 ],
                 default: "pending"
+            }
+        },
+        shippingAddress:{
+            name:{
+                type: String,
+                required: true
+            },
+            address:{
+                type: String,
+                required: true
+            },
+            phone:{
+                type: String,
+                required: true
             }
         }
     },{

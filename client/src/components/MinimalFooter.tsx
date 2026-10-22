@@ -1,8 +1,8 @@
 export default function MinimalFooter(){
     return(
-        <footer className="footer">
-            <div className="container footer-bottom">
-            &copy; 2026 ECOMMY Inc. All rights reserved.
+        <footer className="border-t border-gray-200 bg-white">
+            <div className="mx-auto max-w-7xl px-4 py-5 text-center text-sm text-gray-500 sm:px-6 lg:px-8">
+                © 2026 ECOMMY Inc. All rights reserved.
             </div>
         </footer>
     )

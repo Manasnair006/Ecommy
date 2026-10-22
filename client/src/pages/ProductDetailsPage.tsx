@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 import { ProductDetails } from "../data/Product";
 import api from "../config/api";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import roundToHalf from "../randomKids/starsRounder";
 import { useCart } from "../context/CartContext";
 import useNotification from "../context/NotificationContext";
@@ -14,6 +14,7 @@ export default function ProductDetailsPage(){
 
     const { addToCart } = useCart()
     const { notify } = useNotification()
+    const navigate = useNavigate()
 
     const [productData, setProductData] = useState<ProductDetails>({
         _id: "",
@@ -96,6 +97,10 @@ export default function ProductDetailsPage(){
                 Loading Product Data....
             </div>
         )
+    }
+
+    function handleBuyNow(){
+        navigate(`/checkout?buyNowItemAsin=${productData.asin}&qty=${productData.quantity}`)
     }
     return(
         <>
@@ -195,9 +200,10 @@ export default function ProductDetailsPage(){
                                 🛒 Add to Cart
                             </button>
                             
-                            <a href="checkout.html" className="btn btn-accent btn-block btn-lg mb-5">
+                            <button className="btn btn-accent btn-block btn-lg mb-5"
+                                    onClick={handleBuyNow}>
                                 ⚡ Buy Now
-                            </a>
+                            </button>
 
                             <div className="text-[0.85rem] text-muted leading-[1.6] border-t pt-4" >
                                 <p> Ships from: <strong>ECOMMY Warehouse</strong></p>
