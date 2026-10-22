@@ -1,51 +1,193 @@
-import { useState } from 'react';
-import sandwichIcon from '../assets/sandwichbar.png';
-import searchIcon from '../assets/search.png';
-import "../styles/tailwind.css"
-import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
+
+import { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+
+import sandwichIcon from "../assets/sandwichbar.png";
+import "../styles/tailwind.css";
+
+import { useAuth } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
 
 function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const user = useAuth()?.user
-  const {cartLength} = useCart()
-  const loadingUser = useAuth()?.loading
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const { user, loading: loadingUser } = useAuth();
+  const { cartLength } = useCart();
+
+  const navigate = useNavigate();
+
+  const closeMenu = () => setIsMenuOpen(false);
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const query = searchQuery.trim();
+
+    if (!query) return;
+
+    navigate(`/products?search=${encodeURIComponent(query)}`);
+    setSearchQuery("");
+    closeMenu();
+  };
+
   return (
     <header className="navbar">
       <div className="container navbar-inner">
         <div className="nav-brand">
-          <button className="sandwich-btn" aria-label="Toggle menu"
-            onClick={() => setIsMenuOpen((open) => !open)}>
-            <img src={sandwichIcon} alt='' className='h-5 w-5 object-contain' />
+          <button
+            type="button"
+            className="sandwich-btn"
+            aria-label={isMenuOpen ? "Close menu" : "Toggle menu"}
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            <img
+              src={sandwichIcon}
+              alt=""
+              className="h-5 w-5 object-contain"
+            />
           </button>
-          <a href="/" className='flex items-center gap-2' >
+
+          <Link
+            to="/home"
+            className="flex items-center gap-2"
+            onClick={closeMenu}
+          >
             <span>ECOMMY</span>
-          </a>
+          </Link>
         </div>
 
-        <nav className= {`nav-menu ${isMenuOpen? 'open' : ''}`}>
-          <a href="/home" className="nav-link active">Home</a>
-          <a href="/products" className="nav-link">Products</a>
-          <a href="offers.html" className="nav-link">Offers</a>
-          <a href="about.html" className="nav-link">About Us</a>
+        {/* Navigation */}
+        <nav
+          className={`nav-menu ${isMenuOpen ? "open" : ""}`}
+          aria-label="Main navigation"
+        >
+          <NavLink
+            to="/home"
+            className={({ isActive }) =>
+              `nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={closeMenu}
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              `nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={closeMenu}
+          >
+            Products
+          </NavLink>
+
+          <NavLink
+            to="/offers"
+            className={({ isActive }) =>
+              `nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={closeMenu}
+          >
+            Offers
+          </NavLink>
+
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={closeMenu}
+          >
+            About Us
+          </NavLink>
         </nav>
 
-        <div className="nav-search">
-          <input type="text" placeholder="Search electronics, fashion, home..."  />
-          <button type="submit">
-            <img src={searchIcon} alt='' className='h-5 w-5 object-contain' />
-          </button>
-        </div>
+        {/* Search */}
+        <form className="nav-search" onSubmit={handleSearch} role="search">
+          <span className="nav-search-icon" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="size-4"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+          </span>
 
+          <input
+            type="search"
+            placeholder="Search electronics, fashion, home..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            aria-label="Search products"
+          />
+
+          {searchQuery && (
+            <button
+              type="button"
+              className="nav-search-clear"
+              onClick={() => setSearchQuery("")}
+              aria-label="Clear search"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                className="size-3.5"
+              >
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+          )}
+
+          <button type="submit" className="nav-search-submit" aria-label="Search">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="size-4"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+          </button>
+        </form>
+
+        {/* Actions */}
         <div className="nav-actions">
-          {loadingUser? "Loding" :user
-            ? <a href="/profile" className="nav-action-btn">Hello! {(user as { name?: string }).name}</a>
-            : <a href="/login" className="nav-action-btn">👤 Login</a>
-          }
-          <a href="cart" className="nav-action-btn">
-            🛒 Cart
-            <span className="cart-badge" hidden={cartLength? false : true}>{cartLength}</span>
-          </a>
+          {loadingUser ? (
+            <span className="nav-action-btn">Loading...</span>
+          ) : user ? (
+            <Link to="/profile" className="nav-action-btn">
+              Hello! {user.name}
+            </Link>
+          ) : (
+            <Link to="/login" className="nav-action-btn">
+              Login
+            </Link>
+          )}
+
+          <Link to="/cart" className="nav-action-btn">
+            Cart
+            {cartLength > 0 && (
+              <span className="cart-badge">{cartLength}</span>
+            )}
+          </Link>
         </div>
       </div>
     </header>

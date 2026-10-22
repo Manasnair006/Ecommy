@@ -37,9 +37,17 @@
   .nav-menu { @apply flex items-center gap-6; }
   .nav-link { @apply rounded-md px-3 py-1.5 text-base font-medium whitespace-nowrap text-white/90 transition hover:bg-white/15 hover:text-white; }
   .nav-link.active { @apply bg-white/15 text-white; }
-  .nav-search { @apply relative flex min-w-0 max-w-md flex-1 items-center; }
-  .nav-search input { @apply h-10 min-w-0 w-full rounded-full border border-transparent py-0 pr-11 pl-4 text-sm text-ink outline-none transition focus:ring-3 focus:ring-white/30; }
-  .nav-search button { @apply absolute right-1.5 flex size-7.5 cursor-pointer items-center justify-center rounded-full border-0 bg-blue-200 text-white; }
+  /* The form itself is the visible pill, so the input can stay transparent
+     and inherit it. A single `focus-within` treatment replaces the old
+     doubled-up border + focus ring. */
+  .nav-search { @apply relative flex h-10 min-w-0 max-w-md flex-1 items-center gap-2 rounded-full bg-white pr-1.5 shadow-sm ring-1 ring-white/30 transition hover:ring-white/60 focus-within:ring-0 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent; }
+  .nav-search input { @apply h-full min-w-0 w-full appearance-none border-0 bg-transparent py-0 pr-0 pl-9 text-sm text-ink outline-none placeholder:text-muted/80; }
+  /* WebKit adds its own cancel button + decoration to type="search" */
+  .nav-search input::-webkit-search-cancel-button,
+  .nav-search input::-webkit-search-decoration { @apply appearance-none; }
+  .nav-search-icon { @apply pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted; }
+  .nav-search-clear { @apply flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-slate-200 text-muted transition hover:bg-slate-300 hover:text-ink; }
+  .nav-search-submit { @apply flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-accent text-[#232f3e] transition hover:bg-accent-dark active:scale-95 focus-visible:ring-2 focus-visible:ring-white/70; }
   .nav-actions { @apply flex shrink-0 items-center gap-2 sm:gap-4; }
   .nav-action-btn { @apply relative flex items-center gap-1.5 rounded-md px-2 py-2 font-medium whitespace-nowrap text-white transition hover:bg-white/15 sm:px-3; }
   .cart-badge { @apply absolute top-0.5 right-0.5 flex size-[18px] items-center justify-center rounded-full bg-accent text-xs font-bold text-[#232f3e]; }
@@ -160,9 +168,12 @@
 @media (max-width: 640px) {
   .container.navbar-inner { @apply px-3; }
   .nav-brand { @apply text-xl; }
-  .nav-search { @apply max-w-none flex-none; }
-  .nav-search input { @apply hidden; }
-  .nav-search button { @apply static size-10 bg-transparent; }
+  /* Collapse to a single orange search button, keeping the field hidden. */
+  .nav-search { @apply max-w-none flex-none bg-transparent p-0 shadow-none ring-0; }
+  .nav-search input,
+  .nav-search-icon,
+  .nav-search-clear { @apply hidden; }
+  .nav-search-submit { @apply static size-10 bg-accent text-[#232f3e] hover:bg-accent-dark; }
 }
 
 .logout-modal-overlay {
