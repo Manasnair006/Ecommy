@@ -7,6 +7,7 @@ import { Product } from "../data/Product";
 import productFetcher from "../randomKids/productFetcher";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
+import { useSearchParams } from "react-router-dom";
 
 export interface Filters {
     categoryIds: number[];
@@ -47,6 +48,8 @@ export default function ProductsPage(){
     const [totalPages, setTotalPages] = useState(0)
     const [loading, setLoading] = useState(true)
 
+    const [searchParams] = useSearchParams()
+    const searchQuery = searchParams.get("q") ?? ""
     useEffect(()=>{
         async function loadProducts(){
             try{
@@ -56,6 +59,7 @@ export default function ProductsPage(){
                     filters,
                     sort,
                     page,
+                    q : searchQuery
                 })
                 console.log(data)
 
@@ -69,7 +73,7 @@ export default function ProductsPage(){
             }
         }
         loadProducts();
-    }, [filters, sort, page])
+    }, [filters, sort, page, searchQuery])
 
     return(
         <>

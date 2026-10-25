@@ -26,7 +26,7 @@ function NavBar() {
 
     if (!query) return;
 
-    navigate(`/products?search=${encodeURIComponent(query)}`);
+    navigate(`/products?q=${encodeURIComponent(query)}`);
     setSearchQuery("");
     closeMenu();
   };

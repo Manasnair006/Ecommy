@@ -14,15 +14,18 @@ interface ProductRequest {
     filters: Filters
     sort: SortOption
     page: number
+    q?: string
 }
 
 export default async function productFetcher({
     filters,
     sort,
-    page
+    page,
+    q
     }: ProductRequest): Promise<ProductQueryResponse> {
 
         const params = {
+            q: q?.trim() || undefined,
             category: filters.categoryIds.length > 0
                 ? filters.categoryIds.join(",")
                 : undefined,
