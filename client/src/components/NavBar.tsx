@@ -173,21 +173,24 @@ function NavBar() {
           {loadingUser ? (
             <span className="nav-action-btn">Loading...</span>
           ) : user ? (
-            <Link to="/profile" className="nav-action-btn">
+            <NavLink to="/profile" 
+               className={({ isActive }) =>
+              `nav-link ${isActive ? "active" : ""}`
+            }>
               Hello! {user.name}
-            </Link>
+            </NavLink>
           ) : (
-            <Link to="/login" className="nav-action-btn">
+            <NavLink to="/login" className="nav-action-btn">
               Login
-            </Link>
+            </NavLink>
           )}
 
-          <Link to="/cart" className="nav-action-btn">
+          <NavLink to="/cart" className="nav-action-btn">
             Cart
             {cartLength > 0 && (
               <span className="cart-badge">{cartLength}</span>
             )}
-          </Link>
+          </NavLink>
         </div>
       </div>
     </header>

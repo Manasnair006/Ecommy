@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import Hero from '../assets/Sunrise.jpg'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
 import "../styles/tailwind.css"
 
 function HeroPage() {
+  const navigate = useNavigate()
   return (
     <>
       <NavBar />
@@ -19,7 +21,7 @@ function HeroPage() {
                 <p className="text-sm font-bold tracking-[0.24em] text-brand uppercase">Everything, simply</p>
                 <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">Welcome to Ecommy</h1>
                 <p className="mt-4 max-w-xl text-base leading-7 text-slate-700 sm:text-lg">Find the products you love, with a shopping experience made for everyday life.</p>
-                <button className="mt-7 rounded-xl bg-accent px-6 py-3 font-bold text-slate-950 shadow-sm transition hover:bg-amber-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+                <button onClick={()=> navigate("/home")} className="mt-7 rounded-xl bg-accent px-6 py-3 font-bold text-slate-950 shadow-sm transition hover:bg-amber-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
                   Open Ecommy
                 </button>
               </div>

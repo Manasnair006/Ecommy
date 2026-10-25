@@ -5,19 +5,19 @@ export interface Category {
 
 const categories: Category[] =[
     {
-        id: 100,
+        id: 72,
         name: "Electronics & Tech"
     },
     {
-        id: 200,
+        id: 110,
         name: "Apparel & Fashion"
     },
     {
-        id: 300,
+        id: 170,
         name: "Home & Kitchen"
     },
     {
-        id: 400,
+        id: 137,
         name: "Books & Stationery"
     }
 ]

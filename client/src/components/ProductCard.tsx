@@ -18,8 +18,10 @@ export default function ProductCard(product:Product){
                 <h3 className="product-card-title">{product.title}</h3>
                 <div className="rating-stars">★★★★☆ <span className="rating-count">(10)</span></div>
                 <div className="product-card-price">
-                    <span className="price-current">${product.price}</span>
-                    <span className="price-list">${product.listPrice}</span>
+                    <span className="price-current">${product.price > 0 ? product.price : 1}</span>
+                    {product.listPrice > 0 && product.listPrice>product.price 
+                        ? <span className="price-list">${product.listPrice}</span>
+                        : "" }
                 </div>
                 <div className="product-card-footer">
                     <button className="btn btn-primary btn-block btn-sm" 

@@ -19,7 +19,7 @@ export default function FilterSidebar({
 
     function toggleChange(categoryId: Category["id"]){
         setFilters((prev)=>{
-            const exists = prev.categoryIds.includes(categoryId);
+            let exists = prev.categoryIds.includes(categoryId);
 
             return({
                 ...prev,
@@ -34,7 +34,7 @@ export default function FilterSidebar({
         <aside className="filter-sidebar">
           <div className="flex justify-between items-center mb-4" >
             <h3 className="text-[1.1rem] font-bold">Filter Products</h3>
-            <a href="products.html" className="text-[0.85rem] text-ink"
+            <button className="text-[0.85rem] text-ink"
              onClick={()=>{
                 setFilters({
                     categoryIds:[],
@@ -44,8 +44,9 @@ export default function FilterSidebar({
                     bestSellers: false,
                     discounted: false
                 });
+
              }}> Reset
-            </a>
+            </button>
           </div>
 
           <div className="filter-section">

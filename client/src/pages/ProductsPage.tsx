@@ -50,6 +50,17 @@ export default function ProductsPage(){
 
     const [searchParams] = useSearchParams()
     const searchQuery = searchParams.get("q") ?? ""
+    const catQuery = searchParams.get("cat")? searchParams.getAll("cat").map((curr)=> {return Number(curr)}) : []
+    useEffect(()=>{
+        if(catQuery.length > 0){
+            setFilters((prev)=>{
+                return({
+                    ...prev,
+                    categoryIds: catQuery
+                })           
+            })
+        }
+    },[])
     useEffect(()=>{
         async function loadProducts(){
             try{
@@ -73,7 +84,7 @@ export default function ProductsPage(){
             }
         }
         loadProducts();
-    }, [filters, sort, page, searchQuery])
+    }, [filters, sort, page, searchParams])
 
     return(
         <>
