@@ -10,6 +10,7 @@ import Cartpage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrdersPage from "./pages/OrdersPage";
 import OrderDetailsPage from "./pages/OrderDetailsPage";
+import AboutPage from "./pages/AboutPage";
 
 
 export default function App(){
@@ -27,6 +28,7 @@ export default function App(){
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/orders" element={<OrdersPage/>} />
                 <Route path="/orders/:orderId" element={<OrderDetailsPage />} />
+                <Route path="/about" element={<AboutPage />} />
             </Routes>
         </BrowserRouter>
     ); 
