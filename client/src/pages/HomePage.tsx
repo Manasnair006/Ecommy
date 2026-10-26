@@ -46,7 +46,7 @@ export default function Homepage(){
     return(
         <>
             <NavBar />
-            <main className="page-wrapper" >
+            <main className="page-wrapper !mt-0 !pt-0" >
                 <HeroSection />
                 <div className="container">
                     <section className="features-banner">
