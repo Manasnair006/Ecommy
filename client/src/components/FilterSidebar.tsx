@@ -34,7 +34,7 @@ export default function FilterSidebar({
         <aside className="filter-sidebar">
           <div className="flex justify-between items-center mb-4" >
             <h3 className="text-[1.1rem] font-bold">Filter Products</h3>
-            <button className="text-[0.85rem] text-ink"
+            <button className="text-[0.85rem] text-blue-500 underline"
              onClick={()=>{
                 setFilters({
                     categoryIds:[],

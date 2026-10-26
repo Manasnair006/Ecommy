@@ -86,7 +86,24 @@
   .features-banner { @apply mb-10 grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-5; }
   .feature-card { @apply flex items-center gap-4 rounded-[10px] border border-slate-200 bg-white p-5 shadow-sm; }
   .feature-icon { @apply flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-light text-[1.4rem] text-brand; }
-  .category-grid { @apply mb-10 grid grid-cols-[repeat(auto-fill,minmax(min(180px,100%),1fr))] gap-5; }
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .category-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .category-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+  }  
   .category-card { @apply cursor-pointer rounded-[10px] border border-slate-200 bg-white px-4 py-6 text-center transition hover:-translate-y-1 hover:border-brand hover:shadow-md; }
   .category-card-icon { @apply mb-3 flex h-14 w-full items-center justify-center text-5xl leading-none; }
   .category-card-icon img { @apply h-12 w-12 object-contain; }

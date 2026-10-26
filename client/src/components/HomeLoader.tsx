@@ -4,7 +4,7 @@ export default function HomeLoader() {
             {/* Loading Navbar */}
             <header className="flex h-17.5 items-center justify-between bg-[#075985] px-6 shadow-md sm:px-10">
                 <div className="animate-pulse text-2xl font-extrabold tracking-wide text-orange-400">
-                    ECOMMY<span className="text-white">.</span>
+                    ECOMMY
                 </div>
 
                 <div className="hidden items-center gap-6 md:flex">

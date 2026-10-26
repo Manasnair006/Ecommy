@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import roundToHalf from "../randomKids/starsRounder";
 import { useCart } from "../context/CartContext";
 import useNotification from "../context/NotificationContext";
+import ProductDetailsLoader from "../components/ProductDetailsLoader";
 
 export default function ProductDetailsPage(){
     const { asin } = useParams()
@@ -75,7 +76,7 @@ export default function ProductDetailsPage(){
             }
         }
         loadProduct();
-    },[])
+    },[asin])
     
     const handleProductQuantity = (quantity: number) =>{
         setProductData((prev)=> ({
@@ -91,13 +92,15 @@ export default function ProductDetailsPage(){
         })
     }
 
-    if(loading){
-        return(
-            <div>
-                Loading Product Data....
-            </div>
-        )
-    }
+    if (loading) {
+    return (
+        <>
+            <NavBar />
+            <ProductDetailsLoader />
+            <Footer />
+        </>
+    );
+}
 
     function handleBuyNow(){
         navigate(`/checkout?buyNowItemAsin=${productData.asin}&qty=${productData.quantity}`)

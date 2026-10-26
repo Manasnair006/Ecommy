@@ -8,6 +8,7 @@ import productFetcher from "../randomKids/productFetcher";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import { useSearchParams } from "react-router-dom";
+import ProductGridLoader from "../components/ProductGridLoader";
 
 export interface Filters {
     categoryIds: number[];
@@ -31,15 +32,6 @@ const ratingOptions: ratingOption[] = [
 ]
 
 export default function ProductsPage(){
-    const [filters, setFilters] = useState<Filters>({
-            categoryIds:[],
-            minPrice: null,
-            maxPrice: null,
-            rating: null,
-            bestSellers: false,
-            discounted: false
-    })
-
     const [sort, setSort] = useState<SortOption>("featured")
     const [page, setPage] = useState(1)
 
@@ -48,43 +40,74 @@ export default function ProductsPage(){
     const [totalPages, setTotalPages] = useState(0)
     const [loading, setLoading] = useState(true)
 
-    const [searchParams] = useSearchParams()
-    const searchQuery = searchParams.get("q") ?? ""
-    const catQuery = searchParams.get("cat")? searchParams.getAll("cat").map((curr)=> {return Number(curr)}) : []
-    useEffect(()=>{
-        if(catQuery.length > 0){
-            setFilters((prev)=>{
-                return({
-                    ...prev,
-                    categoryIds: catQuery
-                })           
-            })
-        }
-    },[])
-    useEffect(()=>{
-        async function loadProducts(){
-            try{
-                setLoading(true)
+    const [searchParams] = useSearchParams();
+
+    const searchQuery = searchParams.get("q") ?? "";
+
+    const catQuery = searchParams
+        .getAll("cat")
+        .map(Number)
+        .filter(Number.isFinite);
+
+    const bestSellerQuery = searchParams.has("bestSeller");
+    const discountQuery = searchParams.has("discounted");
+
+    const [filters, setFilters] = useState<Filters>(() => ({
+        categoryIds: catQuery,
+        minPrice: null,
+        maxPrice: null,
+        rating: null,
+        bestSellers: bestSellerQuery,
+        discounted: discountQuery
+    }));
+
+    useEffect(() => {
+        setFilters((prev) => ({
+            ...prev,
+            categoryIds: catQuery,
+            bestSellers: bestSellerQuery,
+            discounted: discountQuery
+        }));
+
+        setPage(1);
+    }, [searchParams]);
+        
+    useEffect(() => {
+        let cancelled = false;
+
+        async function loadProducts() {
+            try {
+                setLoading(true);
 
                 const data = await productFetcher({
                     filters,
                     sort,
                     page,
-                    q : searchQuery
-                })
-                console.log(data)
+                    q: searchQuery
+                });
 
-                setProducts(data.products)
-                setTotalPages(data.totalPages)
-                setTotalProducts(data.totalProducts)
-            }catch(err){
-                console.error("Failed to catch products", err)
-            } finally{
-                setLoading(false)
+                if (cancelled) return;
+
+                setProducts(data.products);
+                setTotalPages(data.totalPages);
+                setTotalProducts(data.totalProducts);
+            } catch (err) {
+                if (!cancelled) {
+                    console.error("Failed to fetch products", err);
+                }
+            } finally {
+                if (!cancelled) {
+                    setLoading(false);
+                }
             }
         }
+
         loadProducts();
-    }, [filters, sort, page, searchParams])
+
+        return () => {
+            cancelled = true;
+        };
+    }, [filters, sort, page, searchQuery]);
 
     return(
         <>
@@ -103,16 +126,46 @@ export default function ProductsPage(){
                         <div className="min-w-0">
                             <Catalogheader sort={sort} setSort={setSort} totalProducts={totalProducts} page={page}/>
 
-                            {loading? (
-                                <div> Loading...... </div>
-                            ):(
+                            {loading ? (
+                                <ProductGridLoader />
+                            ) : products.length > 0 ? (
                                 <div className="product-grid">
-                                    {products.map((prod)=>{
-                                        return(
-                                            <ProductCard key={prod.asin}
-                                                {...prod} />
-                                        )
-                                    })}
+                                    {products.map((prod) => (
+                                        <ProductCard key={prod.asin} {...prod} />
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="flex min-h-75 flex-col items-center justify-center rounded-xl border border-gray-200 bg-white px-6 text-center">
+                                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-8 w-8 text-gray-400"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                            strokeWidth={1.5}
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M3 3h2l2.4 12.2a2 2 0 002 1.6h7.8a2 2 0 002-1.6L21 8H6"
+                                            />
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M10 21h.01M17 21h.01"
+                                            />
+                                        </svg>
+                                    </div>
+
+                                    <h3 className="text-lg font-semibold text-gray-800">
+                                        No products found
+                                    </h3>
+
+                                    <p className="mt-2 max-w-sm text-sm text-gray-500">
+                                        We couldn't find any products matching your filters.
+                                        Try changing your category or adjusting your filters.
+                                    </p>
                                 </div>
                             )}
             
