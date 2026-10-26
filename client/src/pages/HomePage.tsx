@@ -8,6 +8,7 @@ import TopCategorySection from "../components/TopCategorySection";
 import "../styles/tailwind.css"
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import HomeLoader from "../components/HomeLoader";
 
 export interface CategoryData {
     categoryId: number;
@@ -37,16 +38,14 @@ export default function Homepage(){
 
     if(loading){
         return(
-            <div>
-                Loading.....
-            </div>
+            <HomeLoader />
         )
     }
 
     return(
         <>
             <NavBar />
-            <main className="page-wrapper !mt-0 !pt-0" >
+            <main className="page-wrapper mt-0! pt-0!" >
                 <HeroSection />
                 <div className="container">
                     <section className="features-banner">
