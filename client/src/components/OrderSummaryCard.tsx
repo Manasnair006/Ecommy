@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import useNotification from "../context/NotificationContext";
+import { useNavigate } from "react-router-dom";
 
 interface OrderSummaryDetails{
     subTotal: number;
@@ -30,6 +31,7 @@ export default function OrderSummaryCard(){
 
     const { cart, setDiscount, discount } = useCart()
     const { notify } = useNotification()
+    const navigate = useNavigate()
 
     const [ loading, setLoading ] = useState(true)
     const [couponCode,  setCouponCode ] = useState("")
@@ -128,9 +130,9 @@ export default function OrderSummaryCard(){
                 }
             </div>
 
-            <a href="checkout.html" className="btn btn-accent btn-block btn-lg mt-5">
+            <button onClick={()=>{navigate("/checkout")}} className="btn btn-accent btn-block btn-lg mt-5">
                 Proceed to Checkout →
-            </a>
+            </button>
 
             <div className="text-center text-[0.8rem] text-muted mt-4">
                 🔒 256-Bit SSL Encrypted Checkout

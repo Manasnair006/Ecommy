@@ -8,6 +8,8 @@ import ProductDetailsPage from "./pages/ProductDetailsPage";
 import ProfilePage from "./pages/ProfilePage";
 import Cartpage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import OrdersPage from "./pages/OrdersPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
 
 
 export default function App(){
@@ -23,6 +25,8 @@ export default function App(){
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/cart" element={<Cartpage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/orders" element={<OrdersPage/>} />
+                <Route path="/orders/:orderId" element={<OrderDetailsPage />} />
             </Routes>
         </BrowserRouter>
     ); 

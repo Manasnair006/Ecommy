@@ -5,17 +5,26 @@ import axios from "axios";
 import api from "../config/api";
 import useNotification from "./NotificationContext";
 
-interface CartContextValues{
+interface CartContextValues {
     cart: CartItem[] | [];
     setCart: Dispatch<SetStateAction<CartItem[] | []>>;
     cartLength: number;
     cartLoading: boolean;
-    addToCart: ({ asin, quantity }: { asin: string; quantity?: number;}) => Promise<void>;
-    updateItemQuantity: ({ asin, quantity }: {asin: string; quantity: number;}) => Promise<void>;
-    removeItem: ({ asin }: { asin: string;}) => Promise<void> ;
+    refreshCart: () => Promise<void>;
+    addToCart: ({ asin, quantity }: {
+        asin: string;
+        quantity?: number;
+    }) => Promise<void>;
+    updateItemQuantity: ({ asin, quantity }: {
+        asin: string;
+        quantity: number;
+    }) => Promise<void>;
+    removeItem: ({ asin }: {
+        asin: string;
+    }) => Promise<void>;
     deleteCart: () => Promise<void>;
     discount: number;
-    setDiscount: Dispatch<SetStateAction<number>>
+    setDiscount: Dispatch<SetStateAction<number>>;
 }
 
 const CartContext = createContext<CartContextValues | null>(null)
@@ -141,7 +150,21 @@ export const CartProvider = ({children}:{children:ReactNode}) =>{
     }, [user])
 
     return(
-        <CartContext.Provider value={{cart, setCart, cartLoading, cartLength:cart.length, addToCart, updateItemQuantity, removeItem, deleteCart, discount, setDiscount}} >
+        <CartContext.Provider
+            value={{
+                cart,
+                setCart,
+                cartLoading,
+                cartLength: cart.length,
+                refreshCart: fetchCart,
+                addToCart,
+                updateItemQuantity,
+                removeItem,
+                deleteCart,
+                discount,
+                setDiscount
+            }}
+        >
             {children}
         </CartContext.Provider>
     )

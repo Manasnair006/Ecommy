@@ -29,7 +29,7 @@ export default function CheckoutPage() {
         cart: []
     })
 
-    const { cart, discount } = useCart()
+    const { cart, discount, refreshCart } = useCart()
     const {notify} = useNotification()
     const navigate = useNavigate()
 
@@ -201,7 +201,9 @@ export default function CheckoutPage() {
                     message: "Order placed successfully! Your order is confirmed."
                 });
 
-                // C. Navigate to the order details page.
+                if (!buyNowAsin) {
+                    await refreshCart();
+                }
                 navigate(`/orders/${mongoOrderId}`);
 
             } catch (error) {

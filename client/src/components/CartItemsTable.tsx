@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CartItemsTable(){
 
@@ -33,6 +34,7 @@ export default function CartItemsTable(){
         debounceTimers.current[asin] = timer
     }
 
+    const navigate = useNavigate()    
     return(
         <div className="cart-table-card">
             {
@@ -90,7 +92,7 @@ export default function CartItemsTable(){
             }
 
             <div className="flex justify-between mt-5 pt-4 border-t border-solid border-t-white">
-                <a href="products" className="btn btn-outline btn-sm">← Continue Shopping</a>
+                <button onClick={()=>{navigate("/products")}} className="btn btn-outline btn-sm">← Continue Shopping</button>
                 <button className="btn btn-outline btn-sm text-red-600" onClick={()=>{deleteCart()}}>Clear Shopping Cart</button>
             </div>
         </div>

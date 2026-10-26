@@ -99,10 +99,11 @@ exports.createRazorpayOrder = async (req , res) =>{
 exports.createCODOrder = async (req, res) => {
     try {
         let cart = {};
+        const { buyNowItem } = req.body || {};
 
         // 1. Handle Buy Now or regular cart
-        if (req.body && req.body.buyNowItem) {
-            cart.items = [req.body.buyNowItem];
+        if (buyNowItem?.asin && buyNowItem?.quantity) {
+            cart.items = [buyNowItem];
         } else {
             cart = await Cart.findOne({
                 userId: req.user.id
@@ -114,7 +115,6 @@ exports.createCODOrder = async (req, res) => {
                 message: "Cart Not Found"
             });
         }
-
         // 2. Fetch user's delivery details
         const user = await User.findById(req.user.id)
             .select("name address phone")
@@ -186,7 +186,12 @@ exports.createCODOrder = async (req, res) => {
             }
         });
 
-        if (!(req.body && req.body.buyNowItem)) {
+        const isBuyNow = Boolean(
+            req.body?.buyNowItem?.asin &&
+            req.body?.buyNowItem?.quantity
+        );
+
+        if (!isBuyNow) {
             await Cart.findOneAndUpdate(
                 { userId: req.user.id },
                 {
