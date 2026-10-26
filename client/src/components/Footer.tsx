@@ -79,9 +79,37 @@ export default function Footer() {
                         © {new Date().getFullYear()} ECOMMY. All rights reserved.
                     </p>
 
-                    <p>
-                        Built for exceptional shopping experiences.
-                    </p>
+                    <div className="flex flex-col items-center gap-2 sm:items-end">
+                        <p>
+                            Built by <span className="font-semibold text-gray-300">Manas Nair</span>
+                            <span className="text-gray-500"> · Full-Stack Developer</span>
+                        </p>
+
+                        <nav aria-label="Developer contact links" className="flex flex-wrap justify-center gap-x-4 gap-y-2 sm:justify-end">
+                            <a
+                                href="mailto:manassureshnair@gmail.com"
+                                className="transition hover:text-blue-400"
+                            >
+                                Email
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/in/manas-nair-abc/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="transition hover:text-blue-400"
+                            >
+                                LinkedIn
+                            </a>
+                            <a
+                                href="https://github.com/Manasnair006"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="transition hover:text-blue-400"
+                            >
+                                GitHub
+                            </a>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </footer>
