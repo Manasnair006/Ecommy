@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { useAuth } from "../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import api from "../config/api";
 import axios from "axios";
 import MinimalFooter from "../components/MinimalFooter";
+import ProfileLoader from "../components/ProfileLoader";
 
 type active = 
     | "info"
@@ -103,37 +104,48 @@ export default function ProfilePage(){
         }  
     }
 
-    useEffect(()=>{
-        const loadProfileData = async()=>{
-            try{const response = await api.get("/api/user/")
-                if(response.status != 200){
-                    console.log(response)
-                    return 
+    useEffect(() => {
+        if (loading || !user) return;
+
+        let cancelled = false;
+
+        const loadProfileData = async () => {
+            try {
+                const response = await api.get("/api/user/");
+
+                if (!cancelled && response.status === 200) {
+                    setProfileData(response.data.user);
                 }
-                else{
-                    setProfileData(response.data.user)
-                    return
+            } catch (err) {
+                if (!cancelled) {
+                    console.error("Failed to load profile:", err);
+                    setError("Unable to load your profile details. Please try again.");
                 }
-            }catch(err){
-                console.log(err)
-                return 
             }
-        }
-        loadProfileData()
-    }, [])
+        };
+
+        loadProfileData();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [loading, user]);
 
     const handleLogout = async() =>{
         await logout();
         setShowLogoutModal(false)
     }
 
-    if(loading){
-        return null
+    if (loading) {
+        return (
+            <ProfileLoader />
+        );
     }
 
-    if(!user){
-        return <Navigate to="/login" replace />
+    if (!user) {
+        return <Navigate to="/login" replace />;
     }
+    const navigate = useNavigate()
 
     return(
         <>
@@ -156,7 +168,7 @@ export default function ProfilePage(){
                     
                     <div className="profile-nav-card">
                         <a href="#" className={`profile-nav-item ${active === "info"? "active" : ""}`} onClick={()=>{setActive("info")}} data-tab-target="tab-info">👤 Personal Info</a>
-                        <a href="orders.html" className="profile-nav-item">📦 Order History</a>
+                        <button onClick={()=>{navigate("/orders")}} className="profile-nav-item">📦 Order History</button>
                         <a href="#" className={`profile-nav-item ${active === "security"? "active" : ""}`} onClick={()=>{setActive("security")}} data-tab-target="tab-security">🔒 Security Settings</a>
                         <a className="profile-nav-item text-red-800 mt-70" onClick={()=>{setShowLogoutModal(true)}}>🚪 Sign Out</a>
                     </div>
