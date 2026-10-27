@@ -26,7 +26,7 @@ interface SecurityData {
 
 export default function ProfilePage(){
 
-
+    const navigate = useNavigate()
     let { user, logout, setUser, loading } = useAuth()
     const [profileData, setProfileData] = useState<ProfileData>({name:"", email:"", phone:"", address:""})
     const [securityData, setSecurityData] = useState<SecurityData>({currentPassword:"", newPassword:"", confirmNewPassword:""})
@@ -36,33 +36,49 @@ export default function ProfilePage(){
     const [showLogoutModal, setShowLogoutModal] = useState(false)
     const [active, setActive] = useState<active>("info")
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        let name = e.target.name
-        let value = e.target.value
-        if (name === "firstName" || name === "lastName" || name === 'email' || name === "phone" || name === "address"){
-            if (e.target.name === "firstName"){
-            name = "name"
-            value = value+ " " + profileData.name.split(" ").slice(1,)
-            }else if(e.target.name === "lastName"){
-                name = 'name'
-                value = profileData.name.split(" ")[0] +" "+ value
-            }
-            setProfileData((prev)=>({
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        if (name === "firstName") {
+            const lastName = profileData.name.split(" ").slice(1).join(" ");
+
+            setProfileData(prev => ({
                 ...prev,
-                [name] : value
-            }))
-        }else{
-            setSecurityData(prev =>({
-                ...prev,
-                [name] : value
-            }))
+                name: [value.trim(), lastName].filter(Boolean).join(" "),
+            }));
+            return;
         }
-        
-    }
+
+        if (name === "lastName") {
+            const firstName = profileData.name.split(" ")[0] || "";
+
+            setProfileData(prev => ({
+                ...prev,
+                name: [firstName, value.trim()].filter(Boolean).join(" "),
+            }));
+            return;
+        }
+
+        if (name === "email" || name === "phone" || name === "address") {
+            setProfileData(prev => ({
+                ...prev,
+                [name]: value,
+            }));
+            return;
+        }
+
+        setSecurityData(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
     const handleSubmit = async(e: React.SubmitEvent<HTMLFormElement>) =>{
         try{
             e.preventDefault()
+            setError("");
+            setSuccess(false);
             setSubmitting(true)
             if(e.target.name == "profile"){
                 const response = await api.patch("/api/user/updateDetails", {
@@ -82,6 +98,7 @@ export default function ProfilePage(){
             }else if(e.target.name === "security"){
                 if( securityData.confirmNewPassword != securityData.newPassword){
                     setError("Passwords Dont Match")
+                    return
                 }else{
                     const response = await api.patch("/api/user/updatePassword",{
                         currentPassword: securityData.currentPassword,
@@ -112,9 +129,15 @@ export default function ProfilePage(){
         const loadProfileData = async () => {
             try {
                 const response = await api.get("/api/user/");
-
                 if (!cancelled && response.status === 200) {
-                    setProfileData(response.data.user);
+                    const profile = response.data.user;
+
+                    setProfileData({
+                        name: profile?.name ?? "",
+                        email: profile?.email ?? "",
+                        phone: profile?.phone ?? "",
+                        address: profile?.address ?? "",
+                    });
                 }
             } catch (err) {
                 if (!cancelled) {
@@ -145,7 +168,7 @@ export default function ProfilePage(){
     if (!user) {
         return <Navigate to="/login" replace />;
     }
-    const navigate = useNavigate()
+    
 
     return(
         <>
@@ -155,12 +178,18 @@ export default function ProfilePage(){
                 <div className="container">
                 
                 <div className="card p-6 mb-7 flex items-center gap-5">
-                    <div className="w-18 h-18 bg-black text-white border-r-[50%] flex items-center justify-center font-bold text-[2rem]" >
-                        {user.name[0].toUpperCase()}
+                    <div className="w-18 h-18 bg-black text-white rounded-full flex items-center justify-center font-bold text-[2rem]">
+                        {(user?.name?.trim()?.charAt(0) || "U").toUpperCase()}
                     </div>
+
                     <div>
-                        <h1 className="text-[1.5rem] font-extrabold" >{loading?"Loading...":user.name}</h1>
-                        <p className="text-[0.9rem] text-muted" >{loading?"Loading...":user.email}</p>
+                        <h1 className="text-[1.5rem] font-extrabold">
+                            {user?.name || "User"}
+                        </h1>
+
+                        <p className="text-[0.9rem] text-muted">
+                            {user?.email || ""}
+                        </p>
                     </div>
                 </div>
 
