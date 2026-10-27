@@ -46,6 +46,8 @@ app.use(
             if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
                 return callback(null, true);
             }
+            console.log("Request origin:", origin);
+            console.log("Allowed origins:", allowedOrigins);
             return callback(new Error("Not allowed by CORS"));
         },
         credentials: true,
