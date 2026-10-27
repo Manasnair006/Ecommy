@@ -12,7 +12,6 @@ interface OrderSummaryDetails{
 
 export default function CheckoutSidebar({ cart, discount, onPlaceOrder, isProcessing}: { cart: CartItem[], discount: number, onPlaceOrder: () => void, isProcessing: boolean}){
 
-    const { notify } = useNotification()
     const [loading, setLoading] = useState(false)
     const [ orderSummary, setOrderSummary ] = useState<OrderSummaryDetails>({
         subTotal: 0,
