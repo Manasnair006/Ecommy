@@ -15,7 +15,20 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const SERVER_URL = process.env.SERVER_URL || `http://localhost:${PORT}`;
 
-connectDB();
+async function startServer() {
+    try {
+        await connectDB();
+
+        app.listen(PORT, () => {
+            console.log(`Server started running on ${SERVER_URL}`);
+        });
+    } catch (error) {
+        console.error("Failed to start server:", error.message);
+        process.exit(1);
+    }
+}
+
+startServer();
 
 const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
     .split(",")
@@ -60,7 +73,3 @@ app.use("/api/orders", auth, require("./routes/orderRoutes"));
 app.use("/api/payment", auth, require("./routes/paymentRoutes"));
 app.use("/api/user", require("./routes/userRoutes"))
 app.use("/api/contact", require("./routes/contactRoutes"))
-
-app.listen(PORT, () => {
-    console.log(`Server started running on ${SERVER_URL}`);
-});
