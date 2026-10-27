@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import useNotification from "../context/NotificationContext";
 import CartItem from "../data/Cart";
 
 interface OrderSummaryDetails{
