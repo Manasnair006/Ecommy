@@ -19,6 +19,7 @@ export default function CheckoutSidebar({ cart, discount, onPlaceOrder, isProces
         coupon: 0,
         total: 0
     })
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
 
     const calculateSummary = () =>{
         setLoading(true)
@@ -137,6 +138,37 @@ export default function CheckoutSidebar({ cart, discount, onPlaceOrder, isProces
                         <span className="text-lg font-bold">
                             ${orderSummary.total}
                         </span>
+                    </div>
+                </div>
+            }
+            {showConfirmModal &&
+                <div className="logout-modal-overlay">
+                    <div className="logout-modal">
+                        <div className="logout-modal-icon">
+                            !
+                        </div>
+
+                        <h2>This is not a real product order!</h2>
+
+                        <p>
+                            This is an example product checkout and will not be delivered to you. Are you sure you want to place the order?
+                        </p>
+
+                        <div className="logout-modal-actions">
+                            <button
+                                className="btn btn-outline"
+                                onClick={()=>{setShowConfirmModal(false)}}
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                className="btn btn-accent"
+                                onClick={()=>{setShowConfirmModal(false); onPlaceOrder()}}
+                            >
+                                Place Order
+                            </button>
+                        </div>
                     </div>
                 </div>
             }
