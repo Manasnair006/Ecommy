@@ -73,5 +73,7 @@ app.use("/api/categories", require("./routes/categoryRoutes"));
 app.use("/api/cart", auth, require("./routes/cartRoutes"));
 app.use("/api/orders", auth, require("./routes/orderRoutes"));
 app.use("/api/payment", auth, require("./routes/paymentRoutes"));
-app.use("/api/user", require("./routes/userRoutes"))
-app.use("/api/contact", require("./routes/contactRoutes"))
+app.use("/api/user", require("./routes/userRoutes"));
+app.use("/api/contact", require("./routes/contactRoutes"));
+app.get("/api/health", (req, res) => res.status(200).json({ status: "ok", timestamp: new Date().toISOString() }));
+

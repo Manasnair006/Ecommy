@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { useNavigate, Link } from "react-router-dom";
 import MinimalFooter from "../components/MinimalFooter";
 import { useAuth } from "../context/AuthContext";
 
@@ -26,6 +26,12 @@ export default function RegisterPage(){
     const [error, setError] = useState("")
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if(user){
+            navigate("/home")
+        }
+    }, [user, navigate])
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
         const { name, value} = e.target;
         setFormData((prev)=>({
@@ -33,10 +39,6 @@ export default function RegisterPage(){
             [name]: value,
         }));
     };
-
-    if(user){
-        navigate("/home")
-    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
@@ -72,9 +74,9 @@ export default function RegisterPage(){
             <header className="navbar">
                 <div className="container navbar-inner">
                 <div className="nav-brand">
-                    <a href="home" className="text-white text-[1.6rem] font-extrabold">ECOMMY</a>
+                    <Link to="/home" className="text-white text-[1.6rem] font-extrabold">ECOMMY</Link>
                 </div>
-                <a href="login" className="nav-action-btn">Already have an account? Login</a>
+                <Link to="/login" className="nav-action-btn">Already have an account? Login</Link>
                 </div>
             </header>
 

@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import MinimalFooter from "../components/MinimalFooter";
 
@@ -20,6 +20,12 @@ export default function LoginPage(){
     const [error, setError] = useState("")
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if(user){
+            navigate("/home")
+        }
+    }, [user, navigate])
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=> {
         const { name, value } = e.target
         setLoginData(prev=>({
@@ -28,15 +34,10 @@ export default function LoginPage(){
         }))
     }
 
-    if(user){
-        navigate("/home")
-    }
-
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) =>{
         e.preventDefault()
         setError("")
         
-
         console.log("Sending login req.....")
         const response = await login({
             email: loginData.email,
@@ -56,9 +57,9 @@ export default function LoginPage(){
             <header className="navbar">
                 <div className="container navbar-inner">
                     <div className="nav-brand">
-                        <a href="/home" className="text-white text-[1.6rem] font-semibold">ECOMMY</a>
+                        <Link to="/home" className="text-white text-[1.6rem] font-semibold">ECOMMY</Link>
                     </div>
-                    <a href="/register" className="nav-action-btn">Sign Up Free →</a>
+                    <Link to="/register" className="nav-action-btn">Sign Up Free →</Link>
                 </div>
             </header>
 
@@ -71,7 +72,7 @@ export default function LoginPage(){
                         <p className="text-[0.9rem] text-muted mt-1">Sign in to manage your orders & profile</p>
                     </div>
 
-                    <form action="profile.html" onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label className="form-label">Email Address</label>
                             <input type="email" 

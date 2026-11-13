@@ -1,4 +1,5 @@
 const User = require("../models/User")
+const bcrypt = require("bcryptjs")
 
 exports.updatePassword= async(req, res)=>{
     try{
@@ -9,15 +10,21 @@ exports.updatePassword= async(req, res)=>{
             userId
         )
 
+        if(!user){
+            return res.status(404).json({
+                message: "User not found"
+            })
+        }
+
         const match = await bcrypt.compare(
-            user.password, currentPassword
+            currentPassword, user.password
         )
         if(!match){
             return res.status(401).json({
                 message:"Wrong password"
             })
         }
-        user.password = newPassword
+        user.password = await bcrypt.hash(newPassword, 10)
         await user.save()
 
         res.status(200).json({

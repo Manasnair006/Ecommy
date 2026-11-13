@@ -97,7 +97,7 @@ export default function CheckoutPage() {
     useEffect(()=>{
         async function loadUserDetails(){
             try{
-                const respo = await api.get("api/user/")
+                const respo = await api.get("/api/user/")
                 const user = respo.data.user
 
                 setChechkoutData((prev)=>({

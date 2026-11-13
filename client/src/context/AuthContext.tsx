@@ -16,27 +16,67 @@ type AuthContextValue = {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) =>{
-    const [user, setUser] = useState<User| null>(null)
-    const [loading, setLoading] = useState(true)
+    // Synchronously initialize from localStorage so there is ZERO delay or flicker
+    const [user, setUser] = useState<User | null>(() => {
+        try {
+            const saved = localStorage.getItem("user");
+            return saved ? JSON.parse(saved) : null;
+        } catch {
+            return null;
+        }
+    });
+
+    // Only set loading to true if there is an existing session to validate.
+    // Unauthenticated visitors start with loading = false immediately!
+    const [loading, setLoading] = useState<boolean>(() => {
+        try {
+            return Boolean(localStorage.getItem("token") || localStorage.getItem("user"));
+        } catch {
+            return false;
+        }
+    });
 
     const checkAuth = async ()=>{
+        const token = localStorage.getItem("token");
+        const storedUser = localStorage.getItem("user");
+
+        // If there's neither a saved token nor user, visitor is not logged in
+        if (!token && !storedUser) {
+            setUser(null);
+            setLoading(false);
+            return;
+        }
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8-sec safety timeout
+
         try{
-            setLoading(true)
-            const response = await api.get("/api/auth/me")
-            if(response.status == 200){
-                setUser(response.data.user)
+            const response = await api.get("/api/auth/me", {
+                signal: controller.signal,
+            });
+            if(response.status == 200 && response.data.user){
+                setUser(response.data.user);
+                localStorage.setItem("user", JSON.stringify(response.data.user));
             }else{
-                setUser(null)
+                setUser(null);
+                localStorage.removeItem("user");
+                localStorage.removeItem("token");
             }
-        }catch(err){
+        }catch(err: any){
             if(axios.isAxiosError(err)){
-                console.log("Axios Error: ", err)
+                if(err.response?.status === 401 || err.response?.status === 403){
+                    setUser(null);
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
+                }else if(err.code === "ECONNABORTED" || err.name === "CanceledError"){
+                    console.warn("Auth check timed out, keeping cached session");
+                }
             }else{
-                console.error(err)
+                console.error("Auth check error:", err);
             }
-            setUser(null)
         }finally{
-            setLoading(false)
+            clearTimeout(timeoutId);
+            setLoading(false);
         }
     }
 
@@ -52,14 +92,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) =>{
             });
 
             console.log("Login successful")
-            setUser(response.data.user)
+            if(response.data.token){
+                localStorage.setItem("token", response.data.token);
+            }
+            if(response.data.user){
+                setUser(response.data.user);
+                localStorage.setItem("user", JSON.stringify(response.data.user));
+            }
             return({
                 success: true,
                 message: "Login successful"
             })
         }catch(err: any){
             console.log(err)
-            setUser(null)
             return({
                 success: false,
                 message: err.response?.data?.message || "Login Failed"
@@ -75,17 +120,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) =>{
     }> =>{
         try{
             setLoading(true)
-            await api.post("/api/auth/logout")
-
-            console.log("Logged Out")
+            await api.post("/api/auth/logout").catch(() => {});
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
             setUser(null)
             return({
                 success: true,
                 message: "Logged Out Successfully"
             })
-            
         }catch(err:any){
             console.log(err)
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            setUser(null);
             return({
                 success: false,
                 message: err.response?.data?.message || "Logout Failed"
@@ -107,7 +154,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) =>{
                 password: password
             })
             console.log("Registration Successful")
-            setUser(response.data.user)
+            if(response.data.token){
+                localStorage.setItem("token", response.data.token);
+            }
+            if(response.data.user){
+                setUser(response.data.user);
+                localStorage.setItem("user", JSON.stringify(response.data.user));
+            }
             return({
                 success: true,
                 message: "User Registered Successfully"
@@ -126,6 +179,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) =>{
     useEffect(()=>{
         checkAuth()
     },[])
+
+    // Sync any user updates into localStorage
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem("user", JSON.stringify(user));
+        }
+    }, [user]);
 
     return(
         <AuthContext.Provider value={{ user, setUser, loading, setLoading, login, logout, register }} >

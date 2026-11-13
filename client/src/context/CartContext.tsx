@@ -82,22 +82,24 @@ export const CartProvider = ({children}:{children:ReactNode}) =>{
 
     const updateItemQuantity = async({asin, quantity}:{asin: string, quantity: number}) =>{
         try{
-            setCartLoading(true)
-            user &&
+            if(user){
                 await api.patch(`/api/cart/${asin}`,{
                     quantity: quantity
                 })
-            notify({
-                type:"success",
-                message: "Updated Item Quantity"
-            })
-            await fetchCart()
+                const response = await api.get("/api/cart/")
+                if(response.data?.items){
+                    setCart(response.data.items)
+                }
+            }
         }catch(err: any){
             console.log(err)
             notify({
                 type: 'error',
-                message: err.response?.data?.message || "Error upating item quantity"
+                message: err.response?.data?.message || "Error updating item quantity"
             })
+            if(user){
+                fetchCart()
+            }
         }
     }
 

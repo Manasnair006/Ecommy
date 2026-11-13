@@ -30,11 +30,11 @@
   .page-wrapper { @apply flex-1 my-5; }
 
   .navbar { @apply sticky top-0 z-50 bg-brand text-white shadow-md; }
-  .navbar-inner { @apply relative flex h-16 flex-nowrap items-center justify-between gap-4; }
-  .nav-brand { @apply flex shrink-0 items-center gap-3 text-[1.6rem] font-extrabold tracking-wide; }
+  .navbar-inner { @apply relative flex h-16 flex-nowrap items-center justify-between gap-2 sm:gap-4; }
+  .nav-brand { @apply flex shrink-0 items-center gap-2 sm:gap-3 text-[1.4rem] sm:text-[1.6rem] font-extrabold tracking-wide; }
   .nav-brand span { @apply text-accent; }
-  .sandwich-btn { @apply hidden cursor-pointer border-0 bg-transparent text-2xl text-white; }
-  .nav-menu { @apply flex items-center gap-6; }
+  .sandwich-btn { @apply flex lg:hidden cursor-pointer border-0 bg-transparent text-white items-center justify-center p-1.5 rounded-lg hover:bg-white/10; }
+  .nav-menu { @apply hidden lg:flex items-center gap-6; }
   .nav-link { @apply rounded-md px-3 py-1.5 text-base font-medium whitespace-nowrap text-white/90 transition hover:bg-white/15 hover:text-white; }
   .nav-link.active { @apply bg-white/15 text-white; }
   /* The form itself is the visible pill, so the input can stay transparent
@@ -48,9 +48,9 @@
   .nav-search-icon { @apply pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted; }
   .nav-search-clear { @apply flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-slate-200 text-muted transition hover:bg-slate-300 hover:text-ink; }
   .nav-search-submit { @apply flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-accent text-[#232f3e] transition hover:bg-accent-dark active:scale-95 focus-visible:ring-2 focus-visible:ring-white/70; }
-  .nav-actions { @apply flex shrink-0 items-center gap-2 sm:gap-4; }
+  .nav-actions { @apply flex shrink-0 items-center gap-1.5 sm:gap-3; }
   .nav-action-btn { @apply relative flex items-center gap-1.5 rounded-md px-2 py-2 font-medium whitespace-nowrap text-white transition hover:bg-white/15 sm:px-3; }
-  .cart-badge { @apply absolute top-0.5 right-0.5 flex size-[18px] items-center justify-center rounded-full bg-accent text-xs font-bold text-[#232f3e]; }
+  .cart-badge { @apply absolute -top-1 -right-1 flex min-w-[18px] h-[18px] px-1 items-center justify-center rounded-full bg-accent text-[11px] font-bold text-[#232f3e] shadow-sm; }
 
   .footer { @apply mt-auto bg-[#232f3e] pt-12 text-slate-300; }
   .footer-grid { @apply grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-8 pb-10; }
@@ -174,23 +174,29 @@
   .profile-nav-item.active { @apply bg-brand-light text-brand; }
 }
 
-@media (max-width: 1100px) {
-  .sandwich-btn { @apply block; }
-  .nav-menu { @apply absolute top-16 left-0 hidden w-full flex-col items-stretch gap-3 bg-brand p-4 shadow-lg; }
-  .nav-menu.open { @apply flex; }
-  .nav-link { @apply px-5 py-3; }
-  .nav-search { @apply max-w-56; }
-}
-
 @media (max-width: 640px) {
   .container.navbar-inner { @apply px-3; }
-  .nav-brand { @apply text-xl; }
-  /* Collapse to a single orange search button, keeping the field hidden. */
-  .nav-search { @apply max-w-none flex-none bg-transparent p-0 shadow-none ring-0; }
-  .nav-search input,
-  .nav-search-icon,
-  .nav-search-clear { @apply hidden; }
-  .nav-search-submit { @apply static size-10 bg-accent text-[#232f3e] hover:bg-accent-dark; }
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  .product-card-img {
+    height: 150px !important;
+    padding: 12px !important;
+  }
+  .product-card-body {
+    padding: 12px !important;
+  }
+  .product-card-title {
+    font-size: 0.875rem !important;
+    height: 2.5em !important;
+  }
+  .price-current {
+    font-size: 1.15rem !important;
+  }
+  .price-list {
+    font-size: 0.8rem !important;
+  }
 }
 
 .logout-modal-overlay {

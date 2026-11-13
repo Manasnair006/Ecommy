@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 import { ProductDetails } from "../data/Product";
 import api from "../config/api";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import roundToHalf from "../randomKids/starsRounder";
 import { useCart } from "../context/CartContext";
 import useNotification from "../context/NotificationContext";
@@ -85,12 +85,14 @@ export default function ProductDetailsPage(){
         }))
     }
 
-    if(error){
-        notify({
-            type: "error",
-            message: error
-        })
-    }
+    useEffect(() => {
+        if(error){
+            notify({
+                type: "error",
+                message: error
+            })
+        }
+    }, [error])
 
     if (loading) {
     return (
@@ -114,7 +116,7 @@ export default function ProductDetailsPage(){
                 <div className="container">
                     
                     <nav className="text-[0.85rem] text-muted mb-5" >
-                        <a href="index.html">Home</a> / <a href="products.html">Electronics</a> / <span className="text-ink">{productData.title}</span>
+                        <Link to="/home" className="hover:underline">Home</Link> / <Link to="/products" className="hover:underline">Products</Link> / <span className="text-ink">{productData.title}</span>
                     </nav>
 
                     <div className="product-detail-grid">

@@ -1,8 +1,9 @@
 import "../styles/tailwind.css"
 import categories from "../data/Category";
-import React from "react";
+import React, { useState } from "react";
 import { Category } from "../data/Category";
 import { Filters, ratingOption } from "../pages/ProductsPage";
+import { SlidersHorizontal, ChevronDown, ChevronUp } from "lucide-react";
 
 interface FilterSidebarProps{
     filters: Filters,
@@ -16,6 +17,15 @@ export default function FilterSidebar({
     setFilters,
     ratingOptions
     }:FilterSidebarProps){
+
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+    const activeFilterCount = 
+        filters.categoryIds.length +
+        (filters.minPrice !== null || filters.maxPrice !== null ? 1 : 0) +
+        (filters.rating !== null ? 1 : 0) +
+        (filters.bestSellers ? 1 : 0) +
+        (filters.discounted ? 1 : 0);
 
     function toggleChange(categoryId: Category["id"]){
         setFilters((prev)=>{
@@ -31,7 +41,31 @@ export default function FilterSidebar({
     }
 
     return(
-        <aside className="filter-sidebar">
+        <div>
+            {/* Mobile Filter Toggle Button */}
+            <div className="lg:hidden mb-4">
+                <button
+                    type="button"
+                    onClick={() => setIsMobileOpen(prev => !prev)}
+                    className="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 font-semibold text-ink shadow-sm transition hover:border-brand"
+                >
+                    <div className="flex items-center gap-2">
+                        <SlidersHorizontal className="size-4 text-brand" />
+                        <span>Filter Products</span>
+                        {activeFilterCount > 0 && (
+                            <span className="rounded-full bg-brand px-2 py-0.5 text-xs text-white font-bold">
+                                {activeFilterCount}
+                            </span>
+                        )}
+                    </div>
+                    <div className="flex items-center gap-1 text-sm text-brand font-medium">
+                        <span>{isMobileOpen ? "Hide" : "Show"}</span>
+                        {isMobileOpen ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}
+                    </div>
+                </button>
+            </div>
+
+            <aside className={`filter-sidebar ${isMobileOpen ? "block mb-6" : "hidden lg:block"}`}>
           <div className="flex justify-between items-center mb-4" >
             <h3 className="text-[1.1rem] font-bold">Filter Products</h3>
             <button className="text-[0.85rem] text-blue-500 underline"
@@ -174,5 +208,6 @@ export default function FilterSidebar({
           </div>
 
         </aside>
+      </div>
     )
 }

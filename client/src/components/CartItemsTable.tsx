@@ -206,7 +206,8 @@ export default function CartItemsTable() {
                         </p>
                     </div>
 
-                    <div>
+                    <div className="col-span-2 md:col-span-1 flex items-center justify-between md:justify-center mt-2 md:mt-0">
+                        <span className="text-xs font-semibold text-muted md:hidden">Quantity:</span>
                         <div className="qty-picker">
                             <button
                                 className="qty-minus"
@@ -242,21 +243,21 @@ export default function CartItemsTable() {
                         </div>
                     </div>
 
-                    <div className="text-right">
+                    <div className="col-span-2 md:col-span-1 flex items-center justify-between md:block md:text-right border-t border-slate-100 md:border-0 pt-2 md:pt-0">
                         <div className="text-[1.2rem] font-extrabold text-ink">
                             ${item.price}
                         </div>
 
                         {removingItemAsin === item.asin ? (
                             <button
-                                className="mt-2 cursor-wait text-[0.85rem] text-gray-400"
+                                className="mt-1 cursor-wait text-[0.85rem] text-gray-400"
                                 disabled
                             >
                                 Removing...
                             </button>
                         ) : (
                             <button
-                                className="mt-2 cursor-pointer text-[0.85rem] text-red-500 transition hover:text-red-700"
+                                className="mt-1 cursor-pointer text-[0.85rem] text-red-500 transition hover:text-red-700 font-medium"
                                 onClick={() => {
                                     setRemovingItemAsin(item.asin);
                                     removeItem({ asin: item.asin });
