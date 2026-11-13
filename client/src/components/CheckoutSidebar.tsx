@@ -176,7 +176,7 @@ export default function CheckoutSidebar({ cart, discount, onPlaceOrder, isProces
             {/* Place Order */}
             <button
                 className="mt-5 flex h-11 w-full items-center justify-center rounded-lg bg-orange-500 px-4 text-sm font-semibold text-gray-900 transition hover:bg-orange-600"
-                onClick={onPlaceOrder}
+                onClick={()=>{setShowConfirmModal(true)}}
                 disabled={isProcessing}
             >
                 {isProcessing
